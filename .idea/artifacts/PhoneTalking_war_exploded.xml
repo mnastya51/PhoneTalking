@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="PhoneTalking:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/PhoneTalking_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="PhoneTalking/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="PhoneTalking" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
