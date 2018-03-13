@@ -31,12 +31,13 @@
     </tr>
 </table>
 <div id="formCity" style=" display: none">
-    <div id="close" onclick="showFormCity('formCity')" title="закрыть">x</div>
+
     <div id="titleFormCity">Добавление города</div>
+    <div class ="close" onclick = "showFormCity('formCity')" title = "закрыть">x</div>
     <div id = "fieldCity">
         <p>Наименование:</p>
         <input id="cityName">
-        <button class = "buttonOk">ОК</button>
+        <button class = "buttonOk" onclick="addCity(document.getElementById('cityName').value)">ОК</button>
     </div>
 </div>
 </body>

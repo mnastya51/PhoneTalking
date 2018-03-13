@@ -2,6 +2,7 @@ package dao;
 
 import entities.City;
 import entities.Entity;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class DAOCity extends Connect implements DAOInterface {
         try (Connection connection = connect()){
             Statement statement = connection.createStatement();
             City city = (City) T;
-            statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"City\"(name_city) VALUES (\'%s\')", city.getNameCity()));
+            statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"city\"(cityname) VALUES (\'%s\')", city.getNameCity()));
         }
     }
 

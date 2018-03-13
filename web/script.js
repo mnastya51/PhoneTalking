@@ -8,7 +8,6 @@ function selectCities() {
         type: 'GET',
 
         success: function (response) {
-            var x = 0;
             for(var i=0; i< response.length; i++){
                 var tbody = document.getElementById('tableCity');
                 var row = document.createElement("TR");
@@ -34,6 +33,18 @@ function showFormCity(id_div)
     else
         document.getElementById(id_div).style.display="none";
 }
-function selectAbonent() {
+function addCity(value) {
+    $.ajax({
+        url: "city?action=add&value=" + value,
+        type: 'GET',
 
+        success: function (response) {
+            selectCities();
+            //удалить строки таблицы
+            showFormCity("formCity");
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
 }
