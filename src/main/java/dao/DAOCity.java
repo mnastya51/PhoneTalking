@@ -31,7 +31,7 @@ public class DAOCity extends Connect implements DAOInterface {
         try (Connection connection = connect()){
             Statement statement = connection.createStatement();
             City city = (City) T;
-            statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"City\" where id_city = \'d\'", city.getId()));
+            statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"city\" where cityid = \'%d\'", city.getId()));
         }
     }
 

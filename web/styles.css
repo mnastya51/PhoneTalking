@@ -66,6 +66,7 @@ body{
 }
 
 #formCity{
+    z-index: 100;
     position:absolute;
     margin-left: 40%;
     top: 130px;
@@ -112,7 +113,9 @@ body{
     height: 40px;
     background-color: #FF6347;
 }
-
+.selected{
+    background-color: #ddd;
+}
 table{
     position: relative;
     top: -600px;
@@ -122,6 +125,7 @@ table{
     border-radius: 10px;
     border-spacing: 0;
     text-align: center;
+    cursor: pointer;
 }
 th {
     background: #FF6347;
@@ -144,9 +148,12 @@ th:last-child {
     border-top-right-radius: 10px;
     border-right: none;
 }
+
+tr{
+    background: #F8E391;
+}
 td {
     padding: 10px 20px;
-    background: #F8E391;
 }
 tr:last-child td:first-child {
     border-radius: 0 0 0 10px;

@@ -27,6 +27,9 @@ public class CityServlet extends HttpServlet {
             case "add":
                 actionAdd(resp, req.getParameter("value"));
                 break;
+            case "delete":
+                actionDelete(resp, req.getParameter("value"));
+                break;
         }
 
     }
@@ -54,7 +57,22 @@ public class CityServlet extends HttpServlet {
                 daoCity.insert(new City(value));
                 resp.getWriter().write(gson.toJson(0));
             } catch (SQLException e) {
-//                resp.getWriter().write("{\"error\"=\"" + e.getMessage() + "\"");
+                resp.getWriter().write(gson.toJson(1));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionDelete(HttpServletResponse resp, String value) {
+        DAOCity daoCity = new DAOCity();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {
+                daoCity.delete(new City(Integer.valueOf(value)));
+                resp.getWriter().write(gson.toJson(0));
+            } catch (SQLException e) {
                 resp.getWriter().write(gson.toJson(1));
             }
         } catch (IOException e) {

@@ -22,16 +22,9 @@
 </ul>
 <ul id="buttons">
     <li id = "addCity" onclick = "showFormCity('formCity')">Добавить</li>
-    <li id = "deleteCity">Удалить</li>
+    <li id = "deleteCity" onclick = "deleteCity()">Удалить</li>
 </ul>
-<table id = "tableCity">
-    <tr>
-        <th>Код</th>
-        <th>Город</th>
-    </tr>
-</table>
 <div id="formCity" style=" display: none">
-
     <div id="titleFormCity">Добавление города</div>
     <div class ="close" onclick = "showFormCity('formCity')" title = "закрыть">x</div>
     <div id = "fieldCity">

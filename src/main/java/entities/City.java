@@ -9,6 +9,10 @@ public class City extends Entity {
         this.cityName = cityName;
     }
 
+    public City(int id) {
+        this.id = id;
+    }
+
     public City(String cityName) {
         this.cityName = cityName;
     }
