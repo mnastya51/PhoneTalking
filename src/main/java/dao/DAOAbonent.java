@@ -33,7 +33,7 @@ public class DAOAbonent  extends Connect implements DAOInterface{
         try (Connection connection = connect()){
             Statement statement = connection.createStatement();
             Abonent abonent = (Abonent) T;
-            statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"Abonent\" where id_abonent = \'d\'", abonent.getId()));
+            statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"abonent\" where abonentid = \'%d\'", abonent.getId()));
         }
     }
 

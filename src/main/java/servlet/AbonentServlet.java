@@ -27,7 +27,7 @@ public class AbonentServlet extends HttpServlet {
                 actionAdd(resp, req.getParameter("fio"), req.getParameter("phone"), req.getParameter("address"), Boolean.valueOf(req.getParameter("facility")));
                 break;
             case "delete":
-               // actionDelete(resp, req.getParameter("value"));
+                actionDelete(resp, req.getParameter("value"));
                 break;
         }
     }
@@ -53,6 +53,22 @@ public class AbonentServlet extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             try {
                 daoAbonent.insert(new Abonent(phone, fio, address, facility));
+                resp.getWriter().write(gson.toJson(0));
+            } catch (SQLException e) {
+                resp.getWriter().write(gson.toJson(1));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionDelete(HttpServletResponse resp, String value) {
+        DAOAbonent daoAbonent = new DAOAbonent();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {
+                daoAbonent.delete(new Abonent(Integer.valueOf(value)));
                 resp.getWriter().write(gson.toJson(0));
             } catch (SQLException e) {
                 resp.getWriter().write(gson.toJson(1));

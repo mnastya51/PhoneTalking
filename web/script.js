@@ -69,6 +69,9 @@ function showForm(divId) {
             document.getElementById('cityNameInput').classList.remove('error');
         }
         else if(divId === 'formAbonent') {
+            document.getElementById('abonentPhoneInput').onkeyup = function () {
+                document.getElementById('abonentPhoneInput').value = document.getElementById('abonentPhoneInput').value.replace(/\D/, '');
+            };
             document.getElementById('abonentNameInput').value = "";
             document.getElementById('abonentPhoneInput').value = "";
             document.getElementById('abonentAddressInput').value = "";
@@ -206,27 +209,31 @@ function addAbonent(fio, phone, address, facility) {
         facility = true;
     else facility = false;
     if(fio !== "" && phone !== "") {
-        $.ajax({
-            url: "abonent?action=add&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
-            type: 'GET',
+        if(phone.length != 11)
+            document.getElementById('abonentPhoneInput').classList.add('error');
+        else {
+            $.ajax({
+                url: "abonent?action=add&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
+                type: 'GET',
 
-            success: function (response) {
-                if (response == 1)
-                    alert("Данная запись уже существует!");
-                else {
-                    document.getElementById('abonentNameInput').value = "";
-                    document.getElementById('abonentPhoneInput').value = "";
-                    document.getElementById('abonentAddressInput').value = "";
-                    document.getElementById('abonentFacilityInput').checked = false;
-                    deleteTable('tableAbonent');
-                    selectAbonent();
-                    showForm("formAbonent");
+                success: function (response) {
+                    if (response == 1)
+                        alert("Данная запись уже существует!");
+                    else {
+                        document.getElementById('abonentNameInput').value = "";
+                        document.getElementById('abonentPhoneInput').value = "";
+                        document.getElementById('abonentAddressInput').value = "";
+                        document.getElementById('abonentFacilityInput').checked = false;
+                        deleteTable('tableAbonent');
+                        selectAbonent();
+                        showForm("formAbonent");
+                    }
+                },
+                error: function (response) {
+                    alert(response);
                 }
-            },
-            error: function (response) {
-                alert(response);
-            }
-        });
+            });
+        }
     }
     else if(fio === "" && phone === ""){
         document.getElementById('abonentNameInput').classList.add('error');
@@ -236,6 +243,21 @@ function addAbonent(fio, phone, address, facility) {
         document.getElementById('abonentNameInput').classList.add('error');
     else if(phone === "")
         document.getElementById('abonentPhoneInput').classList.add('error');
-
 }
 
+function deleteAbonent(){
+    var id = selectedRow.cells[0].textContent;
+    $.ajax({
+        url: "abonent?action=delete&value=" + id,
+        type: 'GET',
+        success: function (response){
+            if(response == 1)
+                alert("Данная запись используется в других таблицах!");
+            deleteTable('tableAbonent');
+            selectAbonent();
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}

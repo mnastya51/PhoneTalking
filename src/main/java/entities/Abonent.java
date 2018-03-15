@@ -7,6 +7,10 @@ public class Abonent extends Entity {
     private String address;
     private Boolean facility;
 
+    public Abonent(int id) {
+        this.id = id;
+    }
+
     public Abonent(int id, String phone, String fio, String address, Boolean facility) {
         this.id = id;
         this.phone = phone;
