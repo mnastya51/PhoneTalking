@@ -31,7 +31,6 @@ public class CityServlet extends HttpServlet {
                 actionDelete(resp, req.getParameter("value"));
                 break;
         }
-
     }
 
     private void actionGet(HttpServletResponse resp) {

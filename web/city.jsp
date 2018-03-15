@@ -21,15 +21,15 @@
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
 <ul id="buttons">
-    <li id = "addCity" onclick = "showFormCity('formCity')">Добавить</li>
+    <li id = "addCity" onclick = "showForm('formCity')">Добавить</li>
     <li id = "deleteCity" onclick = "deleteCity()">Удалить</li>
 </ul>
-<div id="formCity" style=" display: none">
-    <div id="titleFormCity">Добавление города</div>
-    <div class ="close" onclick = "showFormCity('formCity')" title = "закрыть"></div>
-    <div id = "fieldCity">
-        <div id="cityNameField">Наименование:</div>
-        <input id="cityNameInput">
+<div class="baseForm" id = "formCity" style=" display: none">
+    <div class ="titleForm">Добавление города</div>
+    <div class ="close" onclick = "showForm('formCity')" title = "закрыть"></div>
+    <div class = "form">
+        <div class ="field">Наименование:</div>
+        <input class ="input" id ="cityNameInput">
         <button class = "buttonOk" onclick="addCity(document.getElementById('cityNameInput').value)">ОК</button>
     </div>
 </div>

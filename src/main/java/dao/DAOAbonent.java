@@ -2,6 +2,7 @@ package dao;
 
 import entities.Abonent;
 import entities.Entity;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class DAOAbonent  extends Connect implements DAOInterface{
         try (Connection connection = connect()){
             Statement statement = connection.createStatement();
             Abonent abonent = (Abonent) T;
-            statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"Abonent\"(number_tel, fio, address, facility) VALUES" +
+            statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"abonent\"(phone, fio, address, facility) VALUES" +
                     " (\'%s\', \'%s\', \'%s\', \'%b\')", abonent.getPhone(), abonent.getFio(), abonent.getAddress(), abonent.getFacility()));
         }
     }
@@ -42,15 +43,17 @@ public class DAOAbonent  extends Connect implements DAOInterface{
             String fio = "";
             String address = "";
             Boolean facility = false;
+            int id =0;
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(String.format("SELECT number_tel, fio, address, facility  FROM \"phoneTalking\".\"Abonent\""));
-            ArrayList<Abonent> list = null;
+            ResultSet rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\""));
+            ArrayList<Abonent> list = new ArrayList<>();
             while (rs.next()) {
-                phone = rs.getString("number_tel");
+                phone = rs.getString("phone");
                 fio =  rs.getString("fio");
                 address =  rs.getString("address");
                 facility =  rs.getBoolean("facility");
-                Abonent abonent = new Abonent (phone, fio, address, facility);
+                id =  rs.getInt("abonentid");
+                Abonent abonent = new Abonent (id,phone, fio, address, facility);
                 list.add(abonent);
             }
             return list;

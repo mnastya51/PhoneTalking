@@ -8,11 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/styles.css"/>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/script.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <html>
 <head>
     <title>Абоненты</title>
 </head>
-<body onload="selectAbonent()">
+<body onload = "selectAbonent()">
 <ul id = "menu">
     <li onclick="redirecting('/abonent')">Абоненты</li>
     <li onclick="redirecting('/city')">Города</li>
@@ -20,17 +21,28 @@
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
 <ul id="buttons">
-    <li>Добавить</li>
-    <li>Изменить</li>
-    <li>Удалить</li>
+    <li id = "addAbonent" onclick = "showForm('formAbonent')">Добавить</li>
+    <li id = "editAbonent" onclick = "showForm('formAbonent')">Изменить</li>
+    <li  id = "deleteAbonent" onclick = "deleteAbonent()">Удалить</li>
 </ul>
-<table id = "tableAbonent">
-    <tr>
-        <th>ФИО</th>
-        <th>Телефон</th>
-        <th>Адрес</th>
-        <th>Льготы</th>
-    </tr>
-</table>
+<div class = "baseForm" id = "formAbonent" style="display: none; height: 220px; width: 420px">
+    <div class ="titleForm">Добавление абонента</div>
+    <div class ="close" onclick = "showForm('formAbonent')" title = "закрыть"></div>
+    <div class = "form" style="height: 197px">
+        <div class ="field" style="top: 5px">ФИО:</div>
+        <input class ="input"  style="left: 230px" id ="abonentNameInput">
+        <div class ="field" id="phone" style="width: 220px; top: 10px">Телефон (xxx-xxx-xxxx):</div>
+        <input class ="input" style="left: 230px; top: 60px" id ="abonentPhoneInput">
+        <div class ="field" style="top: 15px">Адрес:</div>
+        <input class ="input" style="left: 230px; top: 90px" id ="abonentAddressInput">
+        <div class ="field" style="top: 20px">Льготы:</div>
+        <input type="checkbox" class="checkbox" id ="abonentFacilityInput">
+        <button class = "buttonOk" style="top: 160px; left:180px"
+                onclick="addAbonent(document.getElementById('abonentNameInput').value,
+                document.getElementById('abonentPhoneInput').value,
+                document.getElementById('abonentAddressInput').value,
+                document.getElementById('abonentFacilityInput').checked)">ОК</button>
+    </div>
+</div>
 </body>
 </html>
