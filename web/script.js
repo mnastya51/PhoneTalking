@@ -40,9 +40,6 @@ function selectCities() {
                             selectedRow = this;
                         }
                     }
-                   /* function()    {
-                        $(this).removeClass('selected');
-                    }*/
                 );
             }
         },
@@ -63,7 +60,9 @@ function showForm(divId, edit) {
         $(form).slideUp('slow');
     }
     if ($(form).is(':hidden')) {
-        if(selectedRow !== undefined)
+        if(!edit)
+            $(form).slideDown('slow');
+        if(selectedRow !== undefined && edit)
             $(form).slideDown('slow');
         if (divId === 'formCity'){
             document.getElementById('cityNameInput').value = "";
@@ -244,7 +243,7 @@ function addAndEditAbonent(fio, phone, address, facility) {
             else{
                 isEdit = false;
                 var id = selectedRow.cells[0].textContent;
-                selectedRow = "";
+                selectedRow = undefined;
                 $.ajax({
                     url: "abonent?action=update&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility + "&id=" + id,
                     type: 'GET',

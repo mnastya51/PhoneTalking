@@ -16,7 +16,7 @@
 <body onload = "selectCities()">
 <ul id = "menu">
     <li onclick="redirecting('/abonent')">Абоненты</li>
-    <li onclick="redirecting('/city')">Города</li>
+    <li onclick="redirecting('/city')" style="background-color: #808080">Города</li>
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>

@@ -15,7 +15,7 @@
 </head>
 <body onload = "selectAbonent()">
 <ul id = "menu">
-    <li onclick="redirecting('/abonent')">Абоненты</li>
+    <li onclick="redirecting('/abonent')" style="background-color: #808080">Абоненты</li>
     <li onclick="redirecting('/city')">Города</li>
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>

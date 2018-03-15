@@ -27,8 +27,8 @@
     <div class ="titleForm">Добавление тарифа</div>
     <div class ="close" onclick = "showForm('formTarif', false)" title = "закрыть"></div>
     <div class = "form">
-        <div class ="field">Наименование:</div>
-        <input class ="input" id ="cityNameInput">
+        <div class ="field">Город:</div>
+        <select class ="input" id ="cityNameInput"></select>
         <button class = "buttonOk" onclick="addCity(document.getElementById('cityNameInput').value)">ОК</button>
     </div>
 </div>
