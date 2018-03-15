@@ -21,13 +21,13 @@
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
 <ul id="buttons">
-    <li id = "addAbonent" onclick = "showForm('formAbonent')">Добавить</li>
-    <li id = "editAbonent" onclick = "showForm('formAbonent')">Изменить</li>
+    <li id = "addAbonent" onclick = "showForm('formAbonent', false)">Добавить</li>
+    <li id = "editAbonent" onclick = "showForm('formAbonent', true)">Изменить</li>
     <li  id = "deleteAbonent" onclick = "deleteAbonent()">Удалить</li>
 </ul>
 <div class = "baseForm" id = "formAbonent" style="display: none; height: 220px; width: 420px">
     <div class ="titleForm">Добавление абонента</div>
-    <div class ="close" onclick = "showForm('formAbonent')" title = "закрыть"></div>
+    <div class ="close" onclick = "showForm('formAbonent', false)" title = "закрыть"></div>
     <div class = "form" style="height: 197px">
         <div class ="field" style="top: 5px">ФИО:</div>
         <input class ="input"  style="left: 230px" id ="abonentNameInput">
@@ -38,7 +38,7 @@
         <div class ="field" style="top: 20px">Льготы:</div>
         <input type="checkbox" class="checkbox" id ="abonentFacilityInput">
         <button class = "buttonOk" style="top: 160px; left:180px"
-                onclick="addAbonent(document.getElementById('abonentNameInput').value,
+                onclick="addAndEditAbonent(document.getElementById('abonentNameInput').value,
                 document.getElementById('abonentPhoneInput').value,
                 document.getElementById('abonentAddressInput').value,
                 document.getElementById('abonentFacilityInput').checked)">ОК</button>

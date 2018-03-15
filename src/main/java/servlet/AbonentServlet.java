@@ -29,6 +29,9 @@ public class AbonentServlet extends HttpServlet {
             case "delete":
                 actionDelete(resp, req.getParameter("value"));
                 break;
+            case "update":
+                actionUpdate(resp, req.getParameter("fio"), req.getParameter("phone"), req.getParameter("address"), Boolean.valueOf(req.getParameter("facility")), req.getParameter("id"));
+                break;
         }
     }
 
@@ -69,6 +72,22 @@ public class AbonentServlet extends HttpServlet {
             resp.setCharacterEncoding("UTF-8");
             try {
                 daoAbonent.delete(new Abonent(Integer.valueOf(value)));
+                resp.getWriter().write(gson.toJson(0));
+            } catch (SQLException e) {
+                resp.getWriter().write(gson.toJson(1));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionUpdate(HttpServletResponse resp, String fio, String phone, String address, boolean facility, String id) {
+        DAOAbonent daoAbonent = new DAOAbonent();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {
+                daoAbonent.update(new Abonent(Integer.valueOf(id), phone, fio, address, facility));
                 resp.getWriter().write(gson.toJson(0));
             } catch (SQLException e) {
                 resp.getWriter().write(gson.toJson(1));

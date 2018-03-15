@@ -1,4 +1,5 @@
 var selectedRow;
+var isEdit = false;
 function redirecting(path) {
     window.location.href = path;
 }
@@ -56,7 +57,7 @@ function deleteTable(table) {
     table.parentNode.removeChild(table);
 
 }
-function showForm(divId) {
+function showForm(divId, edit) {
     var form = document.getElementById(divId);
     if ($(form).is(':visible')) {
         $(form).slideUp('slow');
@@ -72,10 +73,14 @@ function showForm(divId) {
             document.getElementById('abonentPhoneInput').onkeyup = function () {
                 document.getElementById('abonentPhoneInput').value = document.getElementById('abonentPhoneInput').value.replace(/\D/, '');
             };
-            document.getElementById('abonentNameInput').value = "";
-            document.getElementById('abonentPhoneInput').value = "";
-            document.getElementById('abonentAddressInput').value = "";
-            document.getElementById('abonentFacilityInput').checked = false;
+            if(edit)
+                editTable(divId);
+            else {
+                document.getElementById('abonentNameInput').value = "";
+                document.getElementById('abonentPhoneInput').value = "";
+                document.getElementById('abonentAddressInput').value = "";
+                document.getElementById('abonentFacilityInput').checked = false;
+            }
             if(document.getElementById('abonentNameInput').className == 'input error')
                 document.getElementById('abonentNameInput').classList.remove('error');
             if(document.getElementById('abonentPhoneInput').className == 'input error')
@@ -98,7 +103,7 @@ function addCity(value) {
                     document.getElementById('cityNameInput').value = "";
                     deleteTable('tableCity');
                     selectCities();
-                    showForm("formCity");
+                    showForm("formCity", false);
                 }
             },
             error: function (response) {
@@ -202,7 +207,7 @@ function selectAbonent() {
     });
 }
 
-function addAbonent(fio, phone, address, facility) {
+function addAndEditAbonent(fio, phone, address, facility) {
     focus(document.getElementById('abonentNameInput'));
     focus(document.getElementById('abonentPhoneInput'));
     if(facility === true)
@@ -212,27 +217,54 @@ function addAbonent(fio, phone, address, facility) {
         if(phone.length != 11)
             document.getElementById('abonentPhoneInput').classList.add('error');
         else {
-            $.ajax({
-                url: "abonent?action=add&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
-                type: 'GET',
+            if(!isEdit) {
+                $.ajax({
+                    url: "abonent?action=add&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
+                    type: 'GET',
 
-                success: function (response) {
-                    if (response == 1)
-                        alert("Данная запись уже существует!");
-                    else {
-                        document.getElementById('abonentNameInput').value = "";
-                        document.getElementById('abonentPhoneInput').value = "";
-                        document.getElementById('abonentAddressInput').value = "";
-                        document.getElementById('abonentFacilityInput').checked = false;
-                        deleteTable('tableAbonent');
-                        selectAbonent();
-                        showForm("formAbonent");
+                    success: function (response) {
+                        if (response == 1)
+                            alert("Данная запись уже существует!");
+                        else {
+                            document.getElementById('abonentNameInput').value = "";
+                            document.getElementById('abonentPhoneInput').value = "";
+                            document.getElementById('abonentAddressInput').value = "";
+                            document.getElementById('abonentFacilityInput').checked = false;
+                            deleteTable('tableAbonent');
+                            selectAbonent();
+                            showForm("formAbonent", false);
+                        }
+                    },
+                    error: function (response) {
+                        alert(response);
                     }
-                },
-                error: function (response) {
-                    alert(response);
-                }
-            });
+                });
+            }
+            else{
+                isEdit = false;
+                var id = selectedRow.cells[0].textContent;
+                $.ajax({
+                    url: "abonent?action=update&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility + "&id=" + id,
+                    type: 'GET',
+
+                    success: function (response) {
+                        if (response == 1)
+                            alert("Данная запись уже существует!");
+                        else {
+                            document.getElementById('abonentNameInput').value = "";
+                            document.getElementById('abonentPhoneInput').value = "";
+                            document.getElementById('abonentAddressInput').value = "";
+                            document.getElementById('abonentFacilityInput').checked = false;
+                            deleteTable('tableAbonent');
+                            selectAbonent();
+                            showForm("formAbonent", false);
+                        }
+                    },
+                    error: function (response) {
+                        alert(response);
+                    }
+                });
+            }
         }
     }
     else if(fio === "" && phone === ""){
@@ -260,4 +292,16 @@ function deleteAbonent(){
             alert(response);
         }
     });
+}
+
+function editTable(divId){
+    isEdit = true;
+    if(divId === 'formAbonent') {
+        document.getElementById('abonentNameInput').value = selectedRow.cells[1].textContent;
+        document.getElementById('abonentPhoneInput').value = selectedRow.cells[2].textContent;
+        document.getElementById('abonentAddressInput').value = selectedRow.cells[3].textContent;
+        if(selectedRow.cells[3].textContent === "да")
+            document.getElementById('abonentFacilityInput').checked = true;
+        else document.getElementById('abonentFacilityInput').checked = false;
+    }
 }

@@ -24,8 +24,8 @@ public class DAOAbonent  extends Connect implements DAOInterface{
         try (Connection connection = connect()){
             Statement statement = connection.createStatement();
             Abonent abonent = (Abonent) T;
-            statement.executeUpdate(String.format("UPDATE  \"phoneTalking\".\"Abonent\" SET number_tel = \'s\', fio = \'s\', address = \'s\', " +
-                    "facility = \'b\'  where id_abonent = \'d\'", abonent.getPhone(), abonent.getFio(), abonent.getAddress(), abonent.getFacility(), abonent.getId()));
+            statement.executeUpdate(String.format("UPDATE  \"phoneTalking\".\"abonent\" SET phone = \'%s\', fio = \'%s\', address = \'%s\', " +
+                    "facility = \'%b\'  where abonentid = \'%d\'", abonent.getPhone(), abonent.getFio(), abonent.getAddress(), abonent.getFacility(), abonent.getId()));
         }
     }
 
