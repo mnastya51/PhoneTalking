@@ -31,7 +31,7 @@ body{
 }
 
 #buttons{
-    top: -585px;
+    top: -625px;
     margin-left: 40%;
     padding: 0;
     list-style-type: none;
@@ -53,8 +53,12 @@ body{
     font-weight: bold;
 }
 
+#buttons li:hover{
+    background-color:  #666;
+}
+
 #tableCity{
-    margin-left: 50%;
+    margin-left: 47%;
 }
 
 #tableTalking{
@@ -65,54 +69,6 @@ body{
     margin-left: 30%;
 }
 
-#formCity{
-    z-index: 100;
-    position:absolute;
-    margin-left: 40%;
-    top: 130px;
-    font-size: 20px;
-    width:500px;
-    height:120px;
-    background: chocolate;
-}
-
-#fieldCity{
-    position:relative;
-    top: -10px;
-    width:inherit;
-    height:100px;
-    background:#FFE4B5;
-}
-
-#titleFormCity{
-    position:relative;
-    left: 10px;
-}
-
-.close {
-    cursor: pointer;
-    position: relative;
-    top:-10px;
-    display: block;
-    width: 20px;
-    height: 20px;
-    color: #0000CC;
-    text-decoration: none;
-    border: solid 1px #777777;
-    border-right: solid 2px #777777;
-    border-bottom: solid 2px #777777;
-    text-align: center;
-    font-size: 20px;
-    float: right;
-
-}
-
-.buttonOk{
-    font-size: 20px;
-    width: 60px;
-    height: 40px;
-    background-color: #FF6347;
-}
 .selected{
     background-color: #ddd;
 }
@@ -163,4 +119,71 @@ tr:last-child td:last-child {
 }
 tr td:last-child {
     border-right: none;
+}
+
+#formCity{
+    z-index: 100;
+    position:absolute;
+    margin-left: 40%;
+    top: 130px;
+    font-size: 20px;
+    width:335px;
+    height:120px;
+    background: #DCDCDC;
+}
+
+#fieldCity{
+    width:inherit;
+    height:100px;
+    background:white;
+}
+
+#titleFormCity{
+    position:relative;
+    left: 10px;
+    color: #C0C0C0;
+}
+
+.close {
+    background-image: url(images/close.png);
+    width:22px;
+    height: 22px;
+    position: absolute;
+    background-size: contain;
+    right: 1px;
+    top: 1px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.close:hover{
+    opacity: 0.5;
+}
+
+#cityNameField{
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 150px;
+    height: 25px;
+}
+
+#cityNameInput{
+    position: absolute;
+    left: 150px;
+    top: 35px;
+}
+
+.buttonOk{
+    position: absolute;
+    top: 70px;
+    left: 150px;
+    font-size: 20px;
+    width: 60px;
+    height: 40px;
+    background-color: #DCDCDC;
+}
+
+.error{
+    background-color: red;
 }

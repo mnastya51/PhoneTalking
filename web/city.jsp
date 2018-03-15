@@ -26,11 +26,11 @@
 </ul>
 <div id="formCity" style=" display: none">
     <div id="titleFormCity">Добавление города</div>
-    <div class ="close" onclick = "showFormCity('formCity')" title = "закрыть">x</div>
+    <div class ="close" onclick = "showFormCity('formCity')" title = "закрыть"></div>
     <div id = "fieldCity">
-        <p>Наименование:</p>
-        <input id="cityName">
-        <button class = "buttonOk" onclick="addCity(document.getElementById('cityName').value)">ОК</button>
+        <div id="cityNameField">Наименование:</div>
+        <input id="cityNameInput">
+        <button class = "buttonOk" onclick="addCity(document.getElementById('cityNameInput').value)">ОК</button>
     </div>
 </div>
 </body>

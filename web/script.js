@@ -60,23 +60,38 @@ function showFormCity(id_div)
 {
     if(document.getElementById(id_div).style.display=="none")
         document.getElementById(id_div).style.display="block";
-    else
-        document.getElementById(id_div).style.display="none";
+    else {
+        document.getElementById(id_div).style.display = "none";
+        if (document.getElementById('cityNameInput').className == 'error') { // сбросить состояние "ошибка", если оно есть
+            document.getElementById('cityNameInput').classList.remove('error')
+        }
+    }
 }
 function addCity(value) {
-    $.ajax({
-        url: "city?action=add&value=" + value,
-        type: 'GET',
+    focus(document.getElementById('cityNameInput'));
+    if(value !== "") {
+        $.ajax({
+            url: "city?action=add&value=" + value,
+            type: 'GET',
 
-        success: function (response){
-            deleteTable();
-            selectCities();
-            showFormCity("formCity");
-        },
-        error: function (response) {
-            alert(response);
-        }
-    });
+            success: function (response) {
+                if (response == 1)
+                    alert("Данная запись уже существует!");
+                else {
+                    document.getElementById('cityNameInput').value = "";
+                    deleteTable();
+                    selectCities();
+                    showFormCity("formCity");
+                }
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+    else {
+        document.getElementById('cityNameInput').classList.add('error');
+    }
 }
 
 function deleteCity(){
@@ -85,6 +100,8 @@ function deleteCity(){
         url: "city?action=delete&value=" + id,
         type: 'GET',
         success: function (response){
+            if(response == 1)
+                alert("Данная запись используется в других таблицах!");
             deleteTable();
             selectCities();
         },
@@ -93,3 +110,13 @@ function deleteCity(){
         }
     });
 }
+
+function focus(input){
+    input.onfocus = function() {
+        if (this.className == 'error') { // сбросить состояние "ошибка", если оно есть
+            this.classList.remove('error')
+        }
+    };
+}
+
+
