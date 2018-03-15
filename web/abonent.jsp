@@ -26,7 +26,7 @@
     <li  id = "deleteAbonent" onclick = "deleteAbonent()">Удалить</li>
 </ul>
 <div class = "baseForm" id = "formAbonent" style="display: none; height: 220px; width: 420px">
-    <div class ="titleForm">Добавление абонента</div>
+    <div class ="titleForm" id = "titleFormAbonent">Добавление абонента</div>
     <div class ="close" onclick = "showForm('formAbonent', false)" title = "закрыть"></div>
     <div class = "form" style="height: 197px">
         <div class ="field" style="top: 5px">ФИО:</div>

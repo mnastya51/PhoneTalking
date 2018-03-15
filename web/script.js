@@ -1,4 +1,4 @@
-var selectedRow;
+var selectedRow ;
 var isEdit = false;
 function redirecting(path) {
     window.location.href = path;
@@ -63,7 +63,8 @@ function showForm(divId, edit) {
         $(form).slideUp('slow');
     }
     if ($(form).is(':hidden')) {
-        $(form).slideDown('slow');
+        if(selectedRow !== undefined)
+            $(form).slideDown('slow');
         if (divId === 'formCity'){
             document.getElementById('cityNameInput').value = "";
             if(document.getElementById('cityNameInput').className == 'input error')
@@ -243,6 +244,7 @@ function addAndEditAbonent(fio, phone, address, facility) {
             else{
                 isEdit = false;
                 var id = selectedRow.cells[0].textContent;
+                selectedRow = "";
                 $.ajax({
                     url: "abonent?action=update&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility + "&id=" + id,
                     type: 'GET',
@@ -297,6 +299,7 @@ function deleteAbonent(){
 function editTable(divId){
     isEdit = true;
     if(divId === 'formAbonent') {
+        document.getElementById('titleFormAbonent').textContent = "Изменение абонента";
         document.getElementById('abonentNameInput').value = selectedRow.cells[1].textContent;
         document.getElementById('abonentPhoneInput').value = selectedRow.cells[2].textContent;
         document.getElementById('abonentAddressInput').value = selectedRow.cells[3].textContent;

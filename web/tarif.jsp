@@ -21,9 +21,17 @@
 </ul>
 <ul id="buttons">
     <li>Добавить</li>
-    <li>Изменить</li>
     <li>Удалить</li>
 </ul>
+<div class="baseForm" id = "formTarif" style=" display: none">
+    <div class ="titleForm">Добавление тарифа</div>
+    <div class ="close" onclick = "showForm('formTarif', false)" title = "закрыть"></div>
+    <div class = "form">
+        <div class ="field">Наименование:</div>
+        <input class ="input" id ="cityNameInput">
+        <button class = "buttonOk" onclick="addCity(document.getElementById('cityNameInput').value)">ОК</button>
+    </div>
+</div>
 <table id = "tableTarif">
     <tr>
         <th>Начало периода</th>
