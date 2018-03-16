@@ -2,6 +2,7 @@ package dao;
 
 import entities.Entity;
 import entities.Tarif;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,15 +45,15 @@ public class DAOTarif extends Connect implements DAOInterface{
             String finishPeriod = "";
             Double cost = -1.0;
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"City\".name_city, \"phoneTalking\".\"Tarif\".start_period," +
-                    "\"phoneTalking\".\"Tarif\".finish_period,  \"phoneTalking\".\"Tarif\".cost_min FROM \"phoneTalking\".\"Tarif\" JOIN " +
-                    "\"phoneTalking\".\"City\" on \"phoneTalking\".\"City\".id_city = \"phoneTalking\".\"Tarif\".id_city"));
-            ArrayList<Tarif> list = null;
+            ResultSet rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                    "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                    "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid"));
+            ArrayList<Tarif> list = new ArrayList<>();
             while (rs.next()) {
-                nameCity = rs.getString("name_city");
-                startPeriod = rs.getString("start_period");
-                finishPeriod = rs.getString("finish_period");
-                cost = rs.getDouble("cost_min");
+                nameCity = rs.getString("cityname");
+                startPeriod = rs.getString("periodStart");
+                finishPeriod = rs.getString("periodend");
+                cost = rs.getDouble("mincost");
                 Tarif tarif = new Tarif (startPeriod, finishPeriod, cost, nameCity);
                 list.add(tarif);
             }

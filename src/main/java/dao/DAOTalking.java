@@ -2,6 +2,7 @@ package dao;
 
 import entities.Entity;
 import entities.Talking;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
                         "\"phoneTalking\".\"Talking\".time_talk  FROM \"phoneTalking\".\"Talking\" JOIN \"phoneTalking\".\"Abonent\" on " +
                         "\"phoneTalking\".\"Abonent\".id_abonent = \"phoneTalking\".\"Talking\".id_abonent JOIN \"phoneTalking\".\"City\" on " +
                         "\"phoneTalking\".\"City\".id_city = \"phoneTalking\".\"Talking\".id_city"));
-                ArrayList<Talking> list = null;
+                ArrayList<Talking> list =  new ArrayList<>();
                 while (rs.next()) {
                     Talking talking = new Talking(rs.getString("number_tel"), rs.getDouble("cost_talk"), rs.getString("name_city"),
                             rs.getInt("count_min"), rs.getString("date_talk"), rs.getString("time_talk"));
