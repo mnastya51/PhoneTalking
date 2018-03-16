@@ -31,7 +31,7 @@
     <div class = "form" style="height: 197px">
         <div class ="field" style="top: 5px">ФИО:</div>
         <input class ="input"  style="left: 230px" id ="abonentNameInput">
-        <div class ="field" id="phone" style="width: 220px; top: 10px">Телефон (xxx-xxx-xxxx):</div>
+        <div class ="field" id="phone" style="width: 220px; top: 10px">Телефон:</div>
         <input class ="input" style="left: 230px; top: 60px" id ="abonentPhoneInput">
         <div class ="field" style="top: 15px">Адрес:</div>
         <input class ="input" style="left: 230px; top: 90px" id ="abonentAddressInput">

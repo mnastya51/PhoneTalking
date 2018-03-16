@@ -342,9 +342,9 @@ function selectTarif() {
                 var td1 = document.createElement("td");
                 td1.appendChild(document.createTextNode(response[i].cityName));
                 var td2 = document.createElement("td");
-                td2.appendChild (document.createTextNode(response[i].startPeriod));
+                td2.appendChild (document.createTextNode(response[i].startPeriod.substring(0,5)));
                 var td3 = document.createElement("td");
-                td3.appendChild (document.createTextNode(response[i].finishPeriod));
+                td3.appendChild (document.createTextNode(response[i].finishPeriod.substring(0,5)));
                 var td4 = document.createElement("td");
                 td4.appendChild (document.createTextNode(response[i].cost));
                 row.appendChild(td1);
@@ -371,11 +371,11 @@ function selectTarif() {
     });
 }
 
-function addTarif(value) {
+function addTarif(city, startPeriod, finishPeriod, minCost) {
     focus(document.getElementById('cityNameInput'));
     if(value !== "") {
         $.ajax({
-            url: "tarif?action=add&value=" + value,
+            url: "tarif?action=add&city=" + city + "&startPeriod=" + startPeriod + "&finishPeriod=" + finishPeriod + "&minCost=" + minCost,
             type: 'GET',
 
             success: function (response) {
@@ -383,9 +383,9 @@ function addTarif(value) {
                     alert("Данная запись уже существует!");
                 else {
                     document.getElementById('cityNameInput').value = "";
-                    deleteTable('tableCity');
-                    selectCities();
-                    showForm("formCity", false);
+                    deleteTable('tableTarif');
+                    selectTarif();
+                    showForm("formTarif", false);
                 }
             },
             error: function (response) {
@@ -405,43 +405,21 @@ function addSelectCities() {
         type: 'GET',
 
         success: function (response) {
-            for(var i=0; i< response.length; i++){
+            for(var i=0; i< response.length; i++)
                 cities.push(response[i].cityName);
-            }
             var CityObj = document.getElementById("cityNameSelect");
             var selind = CityObj.options.selectedIndex;
-                    // очищаем список курортов если он был не пустой
             CityObj.options.length = 0;
-                    // заполняем наш список SELECT с курортами значениями из того массива
-                    // который относится к выбранной стране.
             for (var n = 0; n < cities.length; n++)
-            {
                 CityObj[n] = new Option(cities[n], n);
-            }
+            CityObj.options[0].selected=true;
         },
         error: function (response) {
             alert(response);
         }
     });
-  /*  var CountryObj = document.getElementById("SelectMyLove");
-    var ResortObj = document.getElementById("resort");
-
-    var selind = CountryObj.options.selectedIndex;
-
-    switch (selind)
-    {
-        case 1:
-            // очищаем список курортов если он был не пустой
-            ResortObj.options.length = 0;
-
-            len= australia.length;
-            // заполняем наш список SELECT с курортами значениями из того массива
-            // который относится к выбранной стране.
-            for (var n = 0; n < len; n++)
-            {
-                ResortObj[n] = new Option(australia[n], n);
-            }
-
-    }*/
+    document.getElementById("minCost").onkeyup = function () {
+        document.getElementById("minCost").value =  document.getElementById("minCost").value.replace(/\.(?=.*\.)|[^\d\.]/g, '');
+    }
 }
 

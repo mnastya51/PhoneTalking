@@ -29,8 +29,8 @@ public class TarifServlet extends HttpServlet {
             case "getCity":
                 actionGetCity(resp);
                 break;
-            case "add":
-                //actionAdd(resp, req.getParameter("value"));
+            case "add":// TODO: 16.03.2018 не работает 
+                actionAdd(resp, req.getParameter("city"), req.getParameter("startPeriod"), req.getParameter("finishPeriod"), req.getParameter("minCost"));
                 break;
             case "delete":
                // actionDelete(resp, req.getParameter("value"));
@@ -65,6 +65,22 @@ public class TarifServlet extends HttpServlet {
             resp.getWriter().write(gson.toJson(cities));
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionAdd(HttpServletResponse resp, String city, String startPeriod, String finishPeriod, String minCost) {
+        DAOTarif daoTarif = new DAOTarif();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {// TODO: 16.03.2018  .12 проверять
+                daoTarif.insert(new Tarif(startPeriod, finishPeriod, Double.valueOf(minCost), city));
+                resp.getWriter().write(gson.toJson(0));
+            } catch (SQLException e) {
+                resp.getWriter().write(gson.toJson(1));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

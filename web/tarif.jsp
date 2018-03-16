@@ -24,15 +24,22 @@
     <li id = "addTarif" onclick = "showForm('formTarif', false)">Добавить</li>
     <li>Удалить</li>
 </ul>
-<div class="baseForm" id = "formTarif" style=" display: none">
+<div class="baseForm" id = "formTarif" style="display: none; width: 325px">
     <div class ="titleForm">Добавление тарифа</div>
     <div class ="close" onclick = "showForm('formTarif', false)" title = "закрыть"></div>
-    <div class = "form">
+    <div class = "form" style="height: 180px">
         <div class ="field">Город:</div>
-        <select class ="input" id ="cityNameSelect"  size="1" multiple name="cities[]">
-            <option disabled>Выберите город</option>>
-        </select>
-        <button class = "buttonOk" onclick="addTarif(document.getElementById('cityNameSelect').value)">ОК</button>
+        <select class ="input" id ="cityNameSelect" style="width: 150px; height: 25px; left: 160px; top: 30px"></select>
+        <div class ="field">Начало периода:</div>
+        <input class ="input" type="time" value = "00:00" id ="startPeriod" style="width: 150px; left: 160px; top: 60px">
+        <div class ="field">Конец периода:</div>
+        <input class ="input" type="time" value = "00:00" id ="finishPeriod" style="width: 150px; left: 160px; top: 90px">
+        <div class ="field">Цена за минуту:</div>
+        <input class ="input" id ="minCost" style="width: 150px; left: 160px; top: 120px">
+        <button class = "buttonOk" style="left: 140px; top: 150px" onclick="addTarif(document.getElementById('cityNameSelect').value,
+        document.getElementById('startPeriod').value,
+        document.getElementById('finishPeriod').value,
+        document.getElementById('minCost').value)">ОК</button>
     </div>
 </div>
 </body>
