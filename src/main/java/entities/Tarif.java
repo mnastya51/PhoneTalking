@@ -22,6 +22,12 @@ public class Tarif extends Entity{
         this.cityName = cityName;
     }
 
+    public Tarif(String cityName, String startPeriod, String finishPeriod) {
+        this.startPeriod = startPeriod;
+        this.finishPeriod = finishPeriod;
+        this.cityName = cityName;
+    }
+
     public int getCityId() {
         return cityId;
     }

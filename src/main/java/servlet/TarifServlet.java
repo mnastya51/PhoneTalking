@@ -29,11 +29,11 @@ public class TarifServlet extends HttpServlet {
             case "getCity":
                 actionGetCity(resp);
                 break;
-            case "add":// TODO: 16.03.2018 не работает 
+            case "add":
                 actionAdd(resp, req.getParameter("city"), req.getParameter("startPeriod"), req.getParameter("finishPeriod"), req.getParameter("minCost"));
                 break;
             case "delete":
-               // actionDelete(resp, req.getParameter("value"));
+                actionDelete(resp, req.getParameter("nameCity"), req.getParameter("startPeriod"), req.getParameter("finishPeriod"));
                 break;
         }
     }
@@ -75,8 +75,26 @@ public class TarifServlet extends HttpServlet {
         try {
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
-            try {// TODO: 16.03.2018  .12 проверять
+            try {
                 daoTarif.insert(new Tarif(startPeriod, finishPeriod, Double.valueOf(minCost), city));
+                resp.getWriter().write(gson.toJson(0));
+            } catch (SQLException e) {
+                resp.getWriter().write(gson.toJson(1));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionDelete(HttpServletResponse resp, String nameCity, String startPeriod, String finishPeriod) {
+        DAOTarif daoTarif = new DAOTarif();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {
+                startPeriod = startPeriod + ":00";
+                finishPeriod = finishPeriod + ":00";
+                daoTarif.delete(new Tarif(nameCity, startPeriod, finishPeriod));
                 resp.getWriter().write(gson.toJson(0));
             } catch (SQLException e) {
                 resp.getWriter().write(gson.toJson(1));

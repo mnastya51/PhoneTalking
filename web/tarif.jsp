@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/styles.css"/>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/script.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/jquery-3.3.1.js"></script>
 <html>
 <head>
     <title>Тарифы</title>
@@ -22,7 +22,7 @@
 </ul>
 <ul id="buttons">
     <li id = "addTarif" onclick = "showForm('formTarif', false)">Добавить</li>
-    <li>Удалить</li>
+    <li id = "deleteTarif" onclick = "deleteTarif()">Удалить</li>
 </ul>
 <div class="baseForm" id = "formTarif" style="display: none; width: 325px">
     <div class ="titleForm">Добавление тарифа</div>
@@ -36,7 +36,7 @@
         <input class ="input" type="time" value = "00:00" id ="finishPeriod" style="width: 150px; left: 160px; top: 90px">
         <div class ="field">Цена за минуту:</div>
         <input class ="input" id ="minCost" style="width: 150px; left: 160px; top: 120px">
-        <button class = "buttonOk" style="left: 140px; top: 150px" onclick="addTarif(document.getElementById('cityNameSelect').value,
+        <button class = "buttonOk" style="left: 140px; top: 150px" onclick="addTarif(document.getElementById('cityNameSelect').options[document.getElementById('cityNameSelect').selectedIndex].text,
         document.getElementById('startPeriod').value,
         document.getElementById('finishPeriod').value,
         document.getElementById('minCost').value)">ОК</button>

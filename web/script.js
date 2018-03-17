@@ -61,9 +61,13 @@ function showForm(divId, edit) {
     }
     if ($(form).is(':hidden')) {
         if(!edit) {
-            if (divId !== 'formTarif')
+            if (divId !== 'formTarif' && divId !== 'formTalking')
                 $(form).slideDown('slow');
-            else {
+            else if(divId === 'formTalking'){
+                addSelectCitiesAndPhone();
+                $(form).slideDown('slow');
+            }
+            else{
                 addSelectCities();
                 $(form).slideDown('slow');
             }
@@ -74,6 +78,11 @@ function showForm(divId, edit) {
             document.getElementById('cityNameInput').value = "";
             if(document.getElementById('cityNameInput').className == 'input error')
             document.getElementById('cityNameInput').classList.remove('error');
+        }
+        else if (divId === 'formTarif'){
+            document.getElementById('minCost').value = "";
+            if(document.getElementById('minCost').className == 'input error')
+                document.getElementById('minCost').classList.remove('error');
         }
         else if(divId === 'formAbonent') {
             document.getElementById('abonentPhoneInput').onkeyup = function () {
@@ -91,6 +100,22 @@ function showForm(divId, edit) {
                 document.getElementById('abonentNameInput').classList.remove('error');
             if(document.getElementById('abonentPhoneInput').className == 'input error')
                 document.getElementById('abonentPhoneInput').classList.remove('error');
+        }
+        else {
+            if(edit)
+                editTable(divId);
+            else {
+                document.getElementById('dateTalking').value = "2018-03-17";
+                document.getElementById('timeTalking').value = "00:00";
+                document.getElementById('cost').value = "";
+                document.getElementById('min').value = "";
+                document.getElementById("citySelect").options[0].selected=true;
+                document.getElementById("phoneSelect").options[0].selected=true;
+            }
+            if(document.getElementById('cost').className == 'input error')
+                document.getElementById('cost').classList.remove('error');
+            if(document.getElementById('min').className == 'input error')
+                document.getElementById('min').classList.remove('error');
         }
     }
 }
@@ -312,6 +337,21 @@ function editTable(divId){
             document.getElementById('abonentFacilityInput').checked = true;
         else document.getElementById('abonentFacilityInput').checked = false;
     }
+    else{
+        document.getElementById('titleFormTalking').textContent = "Изменение разговора";
+        //addSelectCitiesAndPhone();
+        var phone = selectedRow.cells[1].textContent;
+       // $("#phoneSelect option[value=phone]").prop('selected', true);
+        //$("#phoneSelect option[value=" + phone + "]").attr('selected', 'true').text(text);
+        var t = $('#phoneSelect');
+       $('#phoneSelect').val("d");
+        var city = selectedRow.cells[2].textContent;
+        $("select#citySelect").val(city);
+        document.getElementById('min').value = selectedRow.cells[3].textContent;
+        document.getElementById('dateTalking').value = selectedRow.cells[4].textContent;
+        document.getElementById('timeTalking').value = selectedRow.cells[5].textContent;
+        document.getElementById('cost').value = selectedRow.cells[6].textContent;
+    }
 }
 
 function selectTarif() {
@@ -372,8 +412,8 @@ function selectTarif() {
 }
 
 function addTarif(city, startPeriod, finishPeriod, minCost) {
-    focus(document.getElementById('cityNameInput'));
-    if(value !== "") {
+    focus(document.getElementById('minCost'));
+    if(minCost !== "") {
         $.ajax({
             url: "tarif?action=add&city=" + city + "&startPeriod=" + startPeriod + "&finishPeriod=" + finishPeriod + "&minCost=" + minCost,
             type: 'GET',
@@ -382,7 +422,9 @@ function addTarif(city, startPeriod, finishPeriod, minCost) {
                 if (response == 1)
                     alert("Данная запись уже существует!");
                 else {
-                    document.getElementById('cityNameInput').value = "";
+                    document.getElementById('minCost').value = "";
+                    document.getElementById('startPeriod').value = "00:00";
+                    document.getElementById('finishPeriod').value = "00:00";
                     deleteTable('tableTarif');
                     selectTarif();
                     showForm("formTarif", false);
@@ -394,7 +436,7 @@ function addTarif(city, startPeriod, finishPeriod, minCost) {
         });
     }
     else {
-        document.getElementById('cityNameInput').classList.add('error');
+        document.getElementById('minCost').classList.add('error');
     }
 }
 
@@ -423,3 +465,228 @@ function addSelectCities() {
     }
 }
 
+function deleteTarif(){
+    var nameCity = selectedRow.cells[0].textContent;
+    var startPeriod = selectedRow.cells[1].textContent;
+    var finishPeriod = selectedRow.cells[2].textContent;
+    $.ajax({
+        url: "tarif?action=delete&nameCity=" + nameCity + "&startPeriod=" + startPeriod + "&finishPeriod=" + finishPeriod,
+        type: 'GET',
+        success: function (response){
+            if(response == 1)
+                alert("Данная запись используется в других таблицах!");
+            deleteTable('tableTarif');
+            selectTarif();
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}
+
+function selectTalking(){
+    $.ajax({
+        url: "talking?action=get",
+        type: 'GET',
+
+        success: function (response) {
+            var table = document.createElement("table");
+            table.id = 'tableTalking';
+            document.body.appendChild(table);
+            var tr = document.createElement("tr");
+            var th1 = document.createElement("th");
+            th1.appendChild(document.createTextNode("Код"));
+            var th2 = document.createElement("th");
+            th2.appendChild(document.createTextNode("Телефон"));
+            var th3 = document.createElement("th");
+            th3.appendChild(document.createTextNode("Город"));
+            var th4 = document.createElement("th");
+            th4.appendChild(document.createTextNode("Количество минут"));
+            var th5 = document.createElement("th");
+            th5.appendChild(document.createTextNode("Дата"));
+            var th6 = document.createElement("th");
+            th6.appendChild(document.createTextNode("Время"));
+            var th7 = document.createElement("th");
+            th7.appendChild(document.createTextNode("Цена"));
+            tr.appendChild(th1);
+            tr.appendChild(th2);
+            tr.appendChild(th3);
+            tr.appendChild(th4);
+            tr.appendChild(th5);
+            tr.appendChild(th6);
+            tr.appendChild(th7);
+            table.appendChild(tr);
+            for(var i=0; i< response.length; i++){
+                var row = document.createElement("tr");
+                var td1 = document.createElement("td");
+                td1.appendChild(document.createTextNode(response[i].talkId));
+                var td2 = document.createElement("td");
+                td2.appendChild(document.createTextNode(response[i].phoneAbonent));
+                var td3 = document.createElement("td");
+                td3.appendChild(document.createTextNode(response[i].cityName));
+                var td4 = document.createElement("td");
+                td4.appendChild(document.createTextNode(response[i].minCount));
+                var td5 = document.createElement("td");
+                td5.appendChild(document.createTextNode(response[i].talkDate));
+                var td6 = document.createElement("td");
+                td6.appendChild (document.createTextNode(response[i].talkTime.substring(0,5)));
+                var td7 = document.createElement("td");
+                td7.appendChild (document.createTextNode(response[i].talkCost));
+                row.appendChild(td1);
+                row.appendChild(td2);
+                row.appendChild(td3);
+                row.appendChild(td4);
+                row.appendChild(td5);
+                row.appendChild(td6);
+                row.appendChild(td7);
+                table.appendChild(row);
+                $(row).click(
+                    function()    {
+                        if(selectedRow ==="")
+                            selectedRow = this;
+                        else if(selectedRow !== this){
+                            $(selectedRow).removeClass('selected');
+                            $(this).addClass('selected');
+                            selectedRow = this;
+                        }
+                    }
+                );
+            }
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}
+
+function addSelectCitiesAndPhone() {
+    var cities = [];
+    var phone = [];
+    $.ajax({
+        url: "talking?action=getCity",
+        type: 'GET',
+
+        success: function (response) {
+            for(var i=0; i< response.length; i++)
+                cities.push(response[i].cityName);
+            var CityObj = document.getElementById("citySelect");
+            var selind = CityObj.options.selectedIndex;
+            CityObj.options.length = 0;
+            for (var n = 0; n < cities.length; n++)
+                CityObj[n] = new Option(cities[n], n);
+            CityObj.options[0].selected=true;
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+    $.ajax({
+        url: "talking?action=getPhone",
+        type: 'GET',
+
+        success: function (response) {
+            for(var i=0; i< response.length; i++)
+                phone.push(response[i].phone);
+            var PhoneObj = document.getElementById("phoneSelect");
+            var selind = PhoneObj.options.selectedIndex;
+            PhoneObj.options.length = 0;
+            for (var n = 0; n < phone.length; n++)
+                PhoneObj[n] = new Option(phone[n], n);
+            PhoneObj.options[0].selected=true;
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+    document.getElementById("cost").onkeyup = function () {
+        document.getElementById("cost").value =  document.getElementById("cost").value.replace(/\.(?=.*\.)|[^\d\.]/g, '');
+    }
+    document.getElementById("min").onkeyup = function () {
+        document.getElementById("min").value =  document.getElementById("min").value.replace(/[^0-9]/, '');
+    }
+}
+
+function addTalking(phone, city, min, date, time, cost) {
+    focus(document.getElementById('cost'));
+    focus(document.getElementById('min'));
+    if(min !== "" && cost !== "") {
+        if (!isEdit) {
+            $.ajax({
+                url: "talking?action=add&phone=" + phone + "&city=" + city + "&min=" + min + "&date=" + date + "&time=" + time + "&cost=" + cost,
+                type: 'GET',
+
+                success: function (response) {
+                    if (response == 1)
+                        alert("Данная запись уже существует!");
+                    else {
+                        document.getElementById('dateTalking').value = "2018-03-17";
+                        document.getElementById('timeTalking').value = "00:00";
+                        document.getElementById('cost').value = "";
+                        document.getElementById('min').value = "";
+                        document.getElementById("citySelect").options[0].selected=true;
+                        document.getElementById("phoneSelect").options[0].selected=true;
+                        deleteTable('tableTalking');
+                        selectTalking();
+                        showForm("formTalking", false);
+                    }
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        }
+        else {
+            isEdit = false;
+            var id = selectedRow.cells[0].textContent;
+            selectedRow = undefined;
+            $.ajax({
+                url: "talking?action=update&phone=" + phone + "&city=" + city + "&min=" + min + "&date=" + date + "&time=" + time + "&cost=" + cost + "&id=" + id,
+                type: 'GET',
+
+                success: function (response) {
+                    if (response == 1)
+                        alert("Данная запись уже существует!");
+                    else {
+                        document.getElementById('dateTalking').value = "2018-03-17";
+                        document.getElementById('timeTalking').value = "00:00";
+                        document.getElementById('cost').value = "";
+                        document.getElementById('min').value = "";
+                        document.getElementById("citySelect").options[0].selected=true;
+                        document.getElementById("phoneSelect").options[0].selected=true;
+                        deleteTable('tableTalking');
+                        selectTalking();
+                        showForm("formTalking", false);
+                    }
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        }
+    }
+    else if(fio === "" && phone === ""){
+        document.getElementById('abonentNameInput').classList.add('error');
+        document.getElementById('abonentPhoneInput').classList.add('error');
+    }
+    else if(fio === "")
+        document.getElementById('abonentNameInput').classList.add('error');
+    else if(phone === "")
+        document.getElementById('abonentPhoneInput').classList.add('error');
+}
+
+function deleteTalking(){
+    var id = selectedRow.cells[0].textContent;
+    $.ajax({
+        url: "talking?action=delete&value=" + id,
+        type: 'GET',
+        success: function (response){
+            if(response == 1)
+                alert("Данная запись используется в других таблицах!");
+            deleteTable('tableTalking');
+            selectTalking();
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}

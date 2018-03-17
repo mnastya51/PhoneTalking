@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/styles.css"/>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/script.js"></script>
 <html>
 <head>

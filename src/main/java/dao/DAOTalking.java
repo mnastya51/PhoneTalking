@@ -15,9 +15,10 @@ import java.util.ArrayList;
             try (Connection connection = connect()){
                 Statement statement = connection.createStatement();
                 Talking talking = (Talking) T;
-                statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"Talking\"(id_abonent, cost_talk, id_city, " +
-                        "count_min, date_talk, time_talk) VALUES (\'%d\', \'%f\', \'%d\', \'%d\', \'%s\', \'%s\')", talking.getAbonentId(),
-                        talking.getCostTalk(), talking.getCityId(), talking.getMinCount(), talking.getTalkDate(), talking.getTalkTime()));
+                statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"talking\"(abonentid, cityid, talkcost, " +
+                        "mincount, talkdate, talktime) VALUES ((select abonentid from \"phoneTalking\".\"abonent\" where phone = \'%s\')," +
+                                "(select cityid FROM \"phoneTalking\".\"city\" where cityname = \'%s\'), \'%s\', \'%d\', \'%s\', \'%s\')",
+                        talking.getPhoneAbonent(),talking.getCityName(), talking.getCostTalk(),  talking.getMinCount(), talking.getTalkDate(), talking.getTalkTime()));
             }
         }
 
@@ -25,9 +26,11 @@ import java.util.ArrayList;
             try (Connection connection = connect()){
                 Statement statement = connection.createStatement();
                 Talking talking = (Talking) T;
-                statement.executeUpdate(String.format("UPDATE  \"phoneTalking\".\"Talking\" SET id_abonent = \'d\', cost_talk = \'f\', id_city = \'d\'," +
-                        "count_min = \'d\', date_talk = \'s\', time_talk = \'s\' where id_talk = \'d\'", talking.getAbonentId(), talking.getCostTalk(),
-                        talking.getCityId(), talking.getMinCount(), talking.getTalkDate(), talking.getTalkTime(), talking.getTalkId()));
+                statement.executeUpdate(String.format("UPDATE  \"phoneTalking\".\"talking\" SET abonentid =" +
+                                "(select abonentid from \"phoneTalking\".\"abonent\" where phone = \'%s\'), talkcost = \'s\', cityid =" +
+                                "(select cityid FROM \"phoneTalking\".\"city\" where cityname = \'%s\')," +
+                        "mincount = \'d\', talkdate = \'s\', talktime = \'s\' where talkid = \'d\'", talking.getPhoneAbonent(), talking.getCostTalk(),
+                        talking.getCityName(), talking.getMinCount(), talking.getTalkDate(), talking.getTalkTime(), talking.getTalkId()));
             }
         }
 
@@ -35,22 +38,23 @@ import java.util.ArrayList;
             try (Connection connection = connect()){
                 Statement statement = connection.createStatement();
                 Talking talking = (Talking) T;
-                statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"Talking\" where id_talk = \'d\'",talking.getTalkId()));
+                statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"talking\" where talkid = \'%d\'",talking.getTalkId()));
             }
         }
 
         public ArrayList<Talking> select() throws SQLException {
             try (Connection connection = connect()) {
                 Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"Abonent\".number_tel, \"phoneTalking\".\"Talking\".cost_talk," +
-                        "\"phoneTalking\".\"City\".name_city, \"phoneTalking\".\"Talking\".count_min, \"phoneTalking\".\"Talking\".date_talk," +
-                        "\"phoneTalking\".\"Talking\".time_talk  FROM \"phoneTalking\".\"Talking\" JOIN \"phoneTalking\".\"Abonent\" on " +
-                        "\"phoneTalking\".\"Abonent\".id_abonent = \"phoneTalking\".\"Talking\".id_abonent JOIN \"phoneTalking\".\"City\" on " +
-                        "\"phoneTalking\".\"City\".id_city = \"phoneTalking\".\"Talking\".id_city"));
+                ResultSet rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"talking\".talkid, "+
+                        "\"phoneTalking\".\"abonent\".phone, \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"talking\".mincount,"+
+                        "\"phoneTalking\".\"talking\".talkdate, \"phoneTalking\".\"talking\".talktime, \"phoneTalking\".\"talking\".talkcost " +
+                        "FROM \"phoneTalking\".\"talking\" JOIN \"phoneTalking\".\"abonent\" on " +
+                        "\"phoneTalking\".\"abonent\".abonentid = \"phoneTalking\".\"talking\".abonentid JOIN \"phoneTalking\".\"city\" on " +
+                        "\"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"talking\".cityid"));
                 ArrayList<Talking> list =  new ArrayList<>();
                 while (rs.next()) {
-                    Talking talking = new Talking(rs.getString("number_tel"), rs.getDouble("cost_talk"), rs.getString("name_city"),
-                            rs.getInt("count_min"), rs.getString("date_talk"), rs.getString("time_talk"));
+                    Talking talking = new Talking(rs.getInt("talkid"), rs.getString("phone"), rs.getString("cityname"),
+                            rs.getInt("mincount"), rs.getString("talkdate"), rs.getString("talktime"),rs.getDouble("talkcost"));
                     list.add(talking);
                 }
                 return list;

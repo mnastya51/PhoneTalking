@@ -7,12 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath}/styles.css"/>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath}/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath}/script.js"></script>
 <html>
 <head>
     <title>Разговоры</title>
 </head>
-<body>
+<body onload = "selectTalking()">
 <ul id = "menu">
     <li onclick="redirecting('/abonent')">Абоненты</li>
     <li onclick="redirecting('/city')">Города</li>
@@ -20,19 +21,33 @@
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
 <ul id="buttons">
-    <li>Добавить</li>
-    <li>Изменить</li>
-    <li>Удалить</li>
+    <li onclick = "showForm('formTalking', false)">Добавить</li>
+    <li onclick = "showForm('formTalking', true)">Изменить</li>
+    <li  onclick = "deleteTalking()">Удалить</li>
 </ul>
-<table id = "tableTalking">
-    <tr>
-        <th>Телефон</th>
-        <th>Город</th>
-        <th>Количество минут</th>
-        <th>Дата</th>
-        <th>Время</th>
-        <th>Цена</th>
-    </tr>
-</table>
+<div class="baseForm" id = "formTalking" style="display: none; width: 350px">
+    <div class ="titleForm"  id = "titleFormTalking">Добавление разговора</div>
+    <div class ="close" onclick = "showForm('formTalking', false)" title = "закрыть"></div>
+    <div class = "form" style="height: 250px">
+        <div class ="field" style="top: 6px">Телефон:</div>
+        <select class ="input" id ="phoneSelect" style="width: 150px; height: 25px; left: 180px; top: 30px"></select>
+        <div class ="field"  style="top: 10px">Город:</div>
+        <select class ="input"  id ="citySelect" style="width: 150px; height: 25px; left: 180px; top: 60px"></select>
+        <div class ="field" style="width: 180px; top: 14px">Количество минут:</div>
+        <input class ="input" id ="min" style="width: 150px; left: 180px; top: 90px">
+        <div class ="field"  style="top: 18px">Дата:</div>
+        <input class ="input" type="date" value = "2018-03-17" id ="dateTalking" style="width: 150px; left: 180px; top: 116px">
+        <div class ="field"  style="top: 22px">Время:</div>
+        <input class ="input" type="time" value = "00:00" id ="timeTalking" style="width: 150px; left: 180px; top: 146px">
+        <div class ="field"  style="top: 26px">Цена:</div>
+        <input class ="input" id ="cost" style="width: 150px; left: 180px; top: 176px">
+        <button class = "buttonOk" style="left: 140px; top: 210px" onclick="addTalking(document.getElementById('phoneSelect').options[document.getElementById('phoneSelect').selectedIndex].text,
+        document.getElementById('citySelect').options[document.getElementById('citySelect').selectedIndex].text,
+        document.getElementById('min').value,
+        document.getElementById('dateTalking').value,
+        document.getElementById('timeTalking').value,
+        document.getElementById('cost').value)">ОК</button>
+    </div>
+</div>
 </body>
 </html>

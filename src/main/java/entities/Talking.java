@@ -12,23 +12,27 @@ public class Talking extends Entity{
     private String cityName = null;
 
 
-    public Talking(int talkId, int abonentId, Double talkCost, int cityId, int minCount, String dateTalk, String talkTime) {
+    public Talking(int talkId, String phoneAbonent, String cityName, int minCount, String talkDate, String talkTime, Double talkCost) {
         this.talkId = talkId;
-        this.abonentId = abonentId;
-        this.talkCost = talkCost;
-        this.cityId = cityId;
-        this.minCount = minCount;
-        this.talkDate = dateTalk;
-        this.talkTime = talkTime;
-    }
-
-    public Talking(String phoneAbonent, Double talkCost, String cityName, int minCount, String talkDate, String talkTime) {
         this.phoneAbonent = phoneAbonent;
         this.talkCost = talkCost;
         this.cityName = cityName;
         this.minCount = minCount;
         this.talkDate = talkDate;
         this.talkTime = talkTime;
+    }
+
+    public Talking(String phoneAbonent, String cityName, int minCount, String talkDate, String talkTime, Double talkCost) {
+        this.phoneAbonent = phoneAbonent;
+        this.talkCost = talkCost;
+        this.cityName = cityName;
+        this.minCount = minCount;
+        this.talkDate = talkDate;
+        this.talkTime = talkTime;
+    }
+
+    public Talking(int talkId) {
+        this.talkId = talkId;
     }
 
     public int getTalkId() {

@@ -14,27 +14,22 @@ public class DAOTarif extends Connect implements DAOInterface{
         try (Connection connection = connect()) {
             Statement statement = connection.createStatement();
             Tarif tarif = (Tarif) T;
-            statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"Tarif\"(id_city, start_period, finish_period, cost_min) VALUES " +
-                    "(\'%d\'), (\'%s\'), (\'%s\'), (\'%f\') ", tarif.getCityId(), tarif.getStartPeriod(), tarif.getFinishPeriod(), tarif.getCost()));
+            statement.executeUpdate(String.format("INSERT INTO \"phoneTalking\".\"tarif\"(cityid, periodstart, periodend, mincost) VALUES " +
+                    "((select cityid FROM \"phoneTalking\".\"city\" where cityname = \'%s\'), \'%s\', \'%s\', \'%s\') ", tarif.getNameCity(), tarif.getStartPeriod(), tarif.getFinishPeriod(), tarif.getCost()));
         }
     }
 
+    @Override
     public void update(Entity T) throws SQLException {
-        try (Connection connection = connect()) {
-            Statement statement = connection.createStatement();
-            Tarif tarif = (Tarif) T;
-            statement.executeUpdate(String.format("UPDATE  \"phoneTalking\".\"Tarif\" SET  cost_min = \'f\' where id_city = \'d\' " +
-                    "and start_period = \'s\' and finish_period = \'s\'", tarif.getCost(), tarif.getCityId(), tarif.getStartPeriod(),
-                    tarif.getFinishPeriod()));
-        }
     }
 
     public void delete(Entity T) throws SQLException {
         try (Connection connection = connect()) {
             Statement statement = connection.createStatement();
             Tarif tarif = (Tarif) T;
-            statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"Tarif\" where id_city = \'d\' and start_period = \'s\'" +
-                            " and finish_period = \'s\'", tarif.getCityId(), tarif.getStartPeriod(), tarif.getFinishPeriod()));
+            statement.executeUpdate(String.format("DELETE FROM \"phoneTalking\".\"tarif\" where cityid = (select cityid FROM" +
+                    " \"phoneTalking\".\"city\" where cityname = \'%s\') and periodstart = \'%s\'" +
+                            " and periodend = \'%s\'", tarif.getNameCity(), tarif.getStartPeriod(), tarif.getFinishPeriod()));
         }
     }
 
