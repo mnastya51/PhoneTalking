@@ -1,5 +1,6 @@
 var selectedRow ;
 var isEdit = false;
+var clickSort = false;
 function redirecting(path) {
     window.location.href = path;
 }
@@ -10,38 +11,7 @@ function selectCities() {
         type: 'GET',
 
         success: function (response) {
-            var table = document.createElement("table");
-            table.id = 'tableCity';
-            document.body.appendChild(table);
-            var tr = document.createElement("tr");
-            var th1 = document.createElement("th");
-            th1.appendChild(document.createTextNode("Код"));
-            var th2 = document.createElement("th");
-            th2.appendChild(document.createTextNode("Город"));
-            tr.appendChild(th1);
-            tr.appendChild(th2);
-            table.appendChild(tr);
-            for(var i=0; i< response.length; i++){
-                var row = document.createElement("tr");
-                var td1 = document.createElement("td");
-                td1.appendChild(document.createTextNode(response[i].id));
-                var td2 = document.createElement("td");
-                td2.appendChild (document.createTextNode(response[i].cityName));
-                row.appendChild(td1);
-                row.appendChild(td2);
-                table.appendChild(row);
-                $(row).click(
-                    function()    {
-                        if(selectedRow ==="")
-                            selectedRow = this;
-                        else if(selectedRow !== this){
-                            $(selectedRow).removeClass('selected');
-                            $(this).addClass('selected');
-                            selectedRow = this;
-                        }
-                    }
-                );
-            }
+            createTableCity(response);
         },
         error: function (response) {
             alert(response);
@@ -49,6 +19,73 @@ function selectCities() {
     });
 }
 
+function createTableCity(response) {
+    var table = document.createElement("table");
+    table.id = 'tableCity';
+    document.body.appendChild(table);
+    var tr = document.createElement("tr");
+    var th1 = document.createElement("th");
+    th1.appendChild(document.createTextNode("Код"));
+    var th2 = document.createElement("th");
+    th2.appendChild(document.createTextNode("Город"));
+    tr.appendChild(th1);
+    tr.appendChild(th2);
+    table.appendChild(tr);
+    for(var i=0; i< response.length; i++){
+        var row = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.appendChild(document.createTextNode(response[i].id));
+        var td2 = document.createElement("td");
+        td2.appendChild (document.createTextNode(response[i].cityName));
+        row.appendChild(td1);
+        row.appendChild(td2);
+        table.appendChild(row);
+        $(row).click(
+            function()    {
+                if(selectedRow !== this){
+                    $(selectedRow).removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedRow = this;
+                }
+            }
+        );
+    }
+    $(tr.cells[1]).click(
+        function()    {
+            if(!clickSort) {
+                $.ajax({
+                    url: "city?action=sort&value=" + "asc",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableCity');
+                        createTableCity(responseSort);
+                        clickSort = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "city?action=sort&value=" + "desc",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableCity');
+                        createTableCity(responseSort);
+                        clickSort = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    return tr;
+}
 function deleteTable(table) {
     var table = document.getElementById(table);
     table.parentNode.removeChild(table);
@@ -238,6 +275,10 @@ function selectAbonent() {
     });
 }
 
+function crateTableAbonent() {
+    
+}
+
 function addAndEditAbonent(fio, phone, address, facility) {
     focus(document.getElementById('abonentNameInput'));
     focus(document.getElementById('abonentPhoneInput'));
@@ -339,14 +380,14 @@ function editTable(divId){
     }
     else{
         document.getElementById('titleFormTalking').textContent = "Изменение разговора";
-        //addSelectCitiesAndPhone();
-        var phone = selectedRow.cells[1].textContent;
+        addSelectCitiesAndPhone();
+       // var phone = selectedRow.cells[1].textContent;
        // $("#phoneSelect option[value=phone]").prop('selected', true);
         //$("#phoneSelect option[value=" + phone + "]").attr('selected', 'true').text(text);
-        var t = $('#phoneSelect');
-       $('#phoneSelect').val("d");
-        var city = selectedRow.cells[2].textContent;
-        $("select#citySelect").val(city);
+       // var t = $('#phoneSelect');
+       //$('#phoneSelect').val("d");
+       // var city = selectedRow.cells[2].textContent;
+       // $("select#citySelect").val(city);
         document.getElementById('min').value = selectedRow.cells[3].textContent;
         document.getElementById('dateTalking').value = selectedRow.cells[4].textContent;
         document.getElementById('timeTalking').value = selectedRow.cells[5].textContent;
