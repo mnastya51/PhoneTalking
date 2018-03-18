@@ -20,6 +20,16 @@
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
+<div class = "filtr" style="left: 220px">
+    <input class ="inputFiltr" style="left: 60px; top: -10px" placeholder = "Город" id ="cityFiltr">
+    <input class ="inputFiltr" style="left: 70px; top: -10px" placeholder = "Начало периода" id ="periodStartFiltr">
+    <input class ="inputFiltr" style="left: 80px; top: -10px" placeholder = "Конец периода"  id ="periodEndFiltr">
+    <input class ="inputFiltr" style="left: 90px; top: -10px" placeholder = "Цена за минуту" id ="minCostFiltr">
+    <button class = "buttonOkFiltr" style="left: 100px; top: -10px" onclick="filterTarif(document.getElementById('cityFiltr').value,
+                document.getElementById('periodStartFiltr').value,
+                document.getElementById('periodEndFiltr').value,
+                document.getElementById('minCostFiltr').value)">ОК</button>
+</div>
 <ul id="buttons">
     <li id = "addTarif" onclick = "showForm('formTarif', false)">Добавить</li>
     <li id = "deleteTarif" onclick = "deleteTarif()">Удалить</li>

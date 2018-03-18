@@ -2,6 +2,7 @@ package dao;
 
 import entities.Entity;
 import entities.Talking;
+import utils.FilterUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -186,6 +187,30 @@ import java.util.ArrayList;
                     Talking talking = new Talking(rs.getInt("talkid"), rs.getString("phone"), rs.getString("cityname"),
                             rs.getInt("mincount"), rs.getString("talkdate"), rs.getString("talktime"),rs.getDouble("talkcost"));
                     list.add(talking);
+                }
+                return list;
+            }
+        }
+        public ArrayList<Talking> filter(Entity T) throws SQLException {
+            try (Connection connection = connect()) {
+                Talking talking = (Talking) T;
+                Statement statement = connection.createStatement();
+                FilterUtils.FilterFormatter filterFormatter = new FilterUtils.FilterFormatter();
+                filterFormatter.addValueWithRegisters("\"phoneTalking\".\"abonent\".phone", talking.getPhoneAbonent());
+                filterFormatter.addValueWithRegisters("\"phoneTalking\".\"city\".cityname", talking.getCityName());
+                if(talking.getMinCount() >= 0)
+                    filterFormatter.addValue("\"phoneTalking\".\"talking\".mincount", talking.getMinCount());
+                filterFormatter.addValue("\"phoneTalking\".\"talking\".talkdate", talking.getTalkDate());
+                if(!talking.getTalkTime().isEmpty())
+                    filterFormatter.addValue("\"phoneTalking\".\"talking\".talktime", talking.getTalkTime() + ":00");
+                if (talking.getCostTalk() >= 0)
+                    filterFormatter.addValue("\"phoneTalking\".\"tarif\".mincost", String.valueOf(talking.getCostTalk()));
+                ResultSet rs = statement.executeQuery(filterFormatter.getFormattedRequestForTalkingDB());
+                ArrayList<Talking> list =  new ArrayList<>();
+                while (rs.next()) {
+                    Talking talk = new Talking(rs.getInt("talkid"), rs.getString("phone"), rs.getString("cityname"),
+                            rs.getInt("mincount"), rs.getString("talkdate"), rs.getString("talktime"),rs.getDouble("talkcost"));
+                    list.add(talk);
                 }
                 return list;
             }

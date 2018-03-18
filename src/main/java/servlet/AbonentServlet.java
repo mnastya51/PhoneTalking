@@ -35,7 +35,7 @@ public class AbonentServlet extends HttpServlet {
             case "sort":
                 actionSort(resp,req.getParameter("value"), req.getParameter("field"));
                 break;
-            case "filtr":
+            case "filter":
                 actionFiltr(resp, req.getParameter("fio"), req.getParameter("phone"), req.getParameter("address"), Boolean.valueOf(req.getParameter("facility")));
                 break;
         }

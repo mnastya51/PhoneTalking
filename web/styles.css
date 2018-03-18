@@ -236,8 +236,8 @@ tr td:last-child {
 .filtr{
     font-size: 20px;
     position: absolute;
-    top: 20px;
-    left: 530px;
-    width: 1000px;
-    height: 1000px;
+    top: 50px;
+    left: 400px;
+    width: 900px;
+    height: 200px;
 }

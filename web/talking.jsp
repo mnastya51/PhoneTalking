@@ -20,6 +20,20 @@
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
+<div class = "filtr" style="left: 220px">
+    <input class ="inputFiltr" style="left: 60px; top: -10px" placeholder = "Телефон" id ="phoneFiltr">
+    <input class ="inputFiltr" style="left: 70px; top: -10px" placeholder = "Город" id ="cityFiltr">
+    <input class ="inputFiltr" style="left: 80px; top: -10px" placeholder = "Количество минут"  id ="minFiltr">
+    <input class ="inputFiltr" style="left: 90px; top: -10px" type="date" placeholder = "Дата" id ="dateFiltr">
+    <input class ="inputFiltr" style="left: 100px; top: -10px" placeholder = "Время" id ="timeFiltr">
+    <input class ="inputFiltr" style="left: 110px; top: -10px" placeholder = "Дата" id ="costFiltr">
+    <button class = "buttonOkFiltr" style="left: 120px; top: -10px" onclick="filterTalking(document.getElementById('phoneFiltr').value,
+                document.getElementById('cityFiltr').value,
+                document.getElementById('minFiltr').value,
+                document.getElementById('dateFiltr').value,
+                document.getElementById('timeFiltr').value,
+                document.getElementById('costFiltr').value)">ОК</button>
+</div>
 <ul id="buttons">
     <li onclick = "showForm('formTalking', false)">Добавить</li>
     <li onclick = "showForm('formTalking', true)">Изменить</li>

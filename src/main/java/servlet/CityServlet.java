@@ -33,7 +33,7 @@ public class CityServlet extends HttpServlet {
             case "sort":
                 actionSort(resp, req.getParameter("value"));
                 break;
-            case "filtr":
+            case "filter":
                 actionFiltr(resp, req.getParameter("value"));
                 break;
         }

@@ -126,11 +126,10 @@ public class DAOAbonent  extends Connect implements DAOInterface{
             Abonent ab = (Abonent) T;
             Statement statement = connection.createStatement();
             FilterUtils.FilterFormatter filterFormatter = new FilterUtils.FilterFormatter();
-            filterFormatter.addValue("fio", ab.getFio());
-            filterFormatter.addValue("phone", ab.getPhone());
-            filterFormatter.addValue("address", ab.getAddress());
+            filterFormatter.addValueWithRegisters("fio", ab.getFio());
+            filterFormatter.addValueWithRegisters("phone", ab.getPhone());
+            filterFormatter.addValueWithRegisters("address", ab.getAddress());
             filterFormatter.addValue("facility", ab.getFacility());
-
             ResultSet rs = statement.executeQuery(filterFormatter.getFormattedRequestForAbonentDB());
             ArrayList<Abonent> list = new ArrayList<>();
             while (rs.next()) {

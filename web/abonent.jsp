@@ -20,19 +20,17 @@
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
-<div class = "filtr" style="left: 220px">
-    <div class ="fieldFiltr">ФИО:</div>
-    <input class ="inputFiltr" style="left: 60px; top: -26px" id ="fioFiltr">
-    <div class ="fieldFiltr" style="left: 220px; top: -50px">Телефон:</div>
-    <input class ="inputFiltr" style="left: 310px; top: -75px" id ="phoneFiltr">
-    <div class ="fieldFiltr" style="left: 470px; top: -100px">Адрес:</div>
-    <input class ="inputFiltr" style="left: 535px; top: -125px" id ="addressFiltr">
-    <div class ="fieldFiltr" style="left: 695px; top: -150px">Льготы:</div>
-    <input type="checkbox" style="position:relative; left: 765px; top: -178px" class="checkbox" id ="facilityFiltr">
-    <button class = "buttonOkFiltr" style="left: 770px; top: -185px" onclick="filtrAbonent(document.getElementById('fioFiltr').value,
+<div class = "filtr" style="left: 160px; top:65px">
+    <input class ="inputFiltr" placeholder="ФИО" id ="fioFiltr">
+    <input class ="inputFiltr" style="left: 170px" placeholder="Телефон" id ="phoneFiltr">
+    <input class ="inputFiltr" style="left: 180px" id ="addressFiltr" placeholder="Адрес">
+    <div class ="fieldFiltr" style="left: 655px; top: -57px">Льготы:</div>
+    <input type="checkbox" style="position:relative; left: 735px; top: -85px" class="checkbox" id ="facilityFiltr">
+    <button class = "buttonOkFiltr" style="left: 740px; top: -90px" onclick="filterAbonent(document.getElementById('fioFiltr').value,
                 document.getElementById('phoneFiltr').value,
                 document.getElementById('addressFiltr').value,
                 document.getElementById('facilityFiltr').checked)">ОК</button>
+    <button class = "buttonOkFiltr" style="left: 750px; top:-90px; width: 150px" onclick="filterAbonentAll()">Показать все</button>
 </div>
 <ul id="buttons">
     <li id = "addAbonent" onclick = "showForm('formAbonent', false)">Добавить</li>

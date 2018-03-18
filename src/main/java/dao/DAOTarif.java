@@ -2,6 +2,7 @@ package dao;
 
 import entities.Entity;
 import entities.Tarif;
+import utils.FilterUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -119,6 +120,35 @@ public class DAOTarif extends Connect implements DAOInterface{
                         break;
                 }
             }
+            ArrayList<Tarif> list = new ArrayList<>();
+            while (rs.next()) {
+                nameCity = rs.getString("cityname");
+                startPeriod = rs.getString("periodStart");
+                finishPeriod = rs.getString("periodend");
+                cost = rs.getDouble("mincost");
+                Tarif tarif = new Tarif (startPeriod, finishPeriod, cost, nameCity);
+                list.add(tarif);
+            }
+            return list;
+        }
+    }
+    public ArrayList<Tarif> filter(Entity T) throws SQLException {
+        try (Connection connection = connect()) {
+            String nameCity = "";
+            String startPeriod = "";
+            String finishPeriod = "";
+            Double cost = -1.0;
+            Tarif tar = (Tarif) T;
+            Statement statement = connection.createStatement();
+            FilterUtils.FilterFormatter filterFormatter = new FilterUtils.FilterFormatter();
+            filterFormatter.addValueWithRegisters("\"phoneTalking\".\"city\".cityname", tar.getNameCity());
+            if(!tar.getStartPeriod().isEmpty())
+                filterFormatter.addValue("\"phoneTalking\".\"tarif\".periodStart", tar.getStartPeriod() + ":00");
+            if(!tar.getFinishPeriod().isEmpty())
+                filterFormatter.addValue("\"phoneTalking\".\"tarif\".periodend", tar.getFinishPeriod() + ":00");
+            if (tar.getCost() >= 0)
+                filterFormatter.addValue("\"phoneTalking\".\"tarif\".mincost", String.valueOf(tar.getCost()));
+            ResultSet rs = statement.executeQuery(filterFormatter.getFormattedRequestForTarifDB());
             ArrayList<Tarif> list = new ArrayList<>();
             while (rs.next()) {
                 nameCity = rs.getString("cityname");

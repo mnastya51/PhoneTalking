@@ -2,9 +2,7 @@ package entities;
 
 public class Talking extends Entity{
     private int talkId;
-    private int abonentId;
-    private Double talkCost;
-    private int cityId;
+    private double talkCost;
     private int minCount;
     private String talkDate;
     private String talkTime;
@@ -12,7 +10,7 @@ public class Talking extends Entity{
     private String cityName = null;
 
 
-    public Talking(int talkId, String phoneAbonent, String cityName, int minCount, String talkDate, String talkTime, Double talkCost) {
+    public Talking(int talkId, String phoneAbonent, String cityName, int minCount, String talkDate, String talkTime, double talkCost) {
         this.talkId = talkId;
         this.phoneAbonent = phoneAbonent;
         this.talkCost = talkCost;
@@ -22,7 +20,7 @@ public class Talking extends Entity{
         this.talkTime = talkTime;
     }
 
-    public Talking(String phoneAbonent, String cityName, int minCount, String talkDate, String talkTime, Double talkCost) {
+    public Talking(String phoneAbonent, String cityName, int minCount, String talkDate, String talkTime, double talkCost) {
         this.phoneAbonent = phoneAbonent;
         this.talkCost = talkCost;
         this.cityName = cityName;
@@ -39,16 +37,8 @@ public class Talking extends Entity{
         return talkId;
     }
 
-    public int getAbonentId() {
-        return abonentId;
-    }
-
-    public Double getCostTalk() {
+    public double getCostTalk() {
         return talkCost;
-    }
-
-    public int getCityId() {
-        return cityId;
     }
 
     public int getMinCount() {
@@ -71,31 +61,5 @@ public class Talking extends Entity{
         return talkTime;
     }
 
-    public void setTalkId(int talkId) {
-        this.talkId = talkId;
-    }
 
-    public void setAbonentId(int abonentId) {
-        this.abonentId = abonentId;
-    }
-
-    public void setCostTalk(Double talkCost) {
-        this.talkCost = talkCost;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }
-
-    public void setMinCount(int minCount) {
-        this.minCount = minCount;
-    }
-
-    public void setTalkDate(String talkDate) {
-        this.talkDate = talkDate;
-    }
-
-    public void setTalkTime(String talkTime) {
-        this.talkTime = talkTime;
-    }
 }

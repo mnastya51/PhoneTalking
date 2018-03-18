@@ -1200,9 +1200,9 @@ function deleteTalking(){
     });
 }
 
-function filtrCity(city) {
+function filterCity(city) {
     $.ajax({
-        url: "city?action=filtr&value=" + city,
+        url: "city?action=filter&value=" + city,
         type: 'GET',
 
         success: function (response) {
@@ -1215,14 +1215,60 @@ function filtrCity(city) {
     });
 }
 
-function filtrAbonent(fio, phone, address, facility){
+function filterCityAll() {
+    document.getElementById('cityNameFiltr').value = "";
+    deleteTable('tableCity');
+    selectCities();
+}
+
+function filterAbonentAll() {
+    document.getElementById('fioFiltr').value = "";
+    document.getElementById('phoneFiltr').value = "";
+    document.getElementById('addressFiltr').value = "";
+    document.getElementById('facilityFiltr').checked = false;
+    deleteTable('tableAbonent');
+    selectAbonent();
+}
+
+
+function filterAbonent(fio, phone, address, facility){
     $.ajax({
-        url: "abonent?action=filtr&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
+        url: "abonent?action=filter&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
         type: 'GET',
 
         success: function (response) {
                 deleteTable('tableAbonent');
                 createTableAbonent(response);
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}
+
+function filterTarif(city, startPeriod, finishPeriod, minCost){
+    $.ajax({
+        url: "tarif?action=filter&city=" + city + "&startPeriod=" + startPeriod + "&finishPeriod=" + finishPeriod + "&minCost=" + minCost,
+        type: 'GET',
+
+        success: function (response) {
+            deleteTable('tableTarif');
+            createTableTarif(response);
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}
+
+function filterTalking(phone, city, min, date, time, cost){
+    $.ajax({
+        url: "talking?action=filter&phone=" + phone + "&city=" + city + "&min=" + min + "&date=" + date + "&time=" + time + "&cost=" + cost,
+        type: 'GET',
+
+        success: function (response) {
+            deleteTable('tableTalking');
+            createTableTalking(response);
         },
         error: function (response) {
             alert(response);

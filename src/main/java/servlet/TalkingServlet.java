@@ -48,6 +48,10 @@ public class TalkingServlet extends HttpServlet {
             case "sort":
                 actionSort(resp,req.getParameter("value"), req.getParameter("field"));
                 break;
+            case "filter":
+                actionFilter(resp, req.getParameter("phone"), req.getParameter("city"), req.getParameter("min"),
+                        req.getParameter("date"), req.getParameter("time"), req.getParameter("cost"));
+                break;
         }
     }
 
@@ -150,6 +154,26 @@ public class TalkingServlet extends HttpServlet {
             resp.getWriter().write(gson.toJson(talking));
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionFilter(HttpServletResponse resp, String phone, String city, String min, String date, String time, String cost) {
+        DAOTalking daoTalking = new DAOTalking();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {
+                if(min.isEmpty())
+                    min = "-1";
+                if(cost.isEmpty())
+                    cost = "-1";
+                List<Talking> talking = daoTalking.filter(new Talking(phone, city, Integer.valueOf(min), date, time, Double.valueOf(cost)));
+                resp.getWriter().write(gson.toJson(talking));
+            } catch (SQLException e) {
+                resp.getWriter().write(gson.toJson(1));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

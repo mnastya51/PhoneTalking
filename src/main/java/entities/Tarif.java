@@ -40,7 +40,7 @@ public class Tarif extends Entity{
         return finishPeriod;
     }
 
-    public Double getCost() {
+    public double getCost() {
         return cost;
     }
 
@@ -60,7 +60,7 @@ public class Tarif extends Entity{
         this.finishPeriod = finishPeriod;
     }
 
-    public void setCost(Double cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 }
