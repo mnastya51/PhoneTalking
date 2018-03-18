@@ -20,6 +20,9 @@
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
+<div class = "filtr">
+
+</div>
 <ul id="buttons">
     <li id = "addCity" onclick = "showForm('formCity', false)">Добавить</li>
     <li id = "deleteCity" onclick = "deleteCity()">Удалить</li>

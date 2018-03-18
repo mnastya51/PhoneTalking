@@ -145,8 +145,8 @@ function showForm(divId, edit) {
                 document.getElementById('timeTalking').value = "00:00";
                 document.getElementById('cost').value = "";
                 document.getElementById('min').value = "";
-                document.getElementById("citySelect").options[0].selected=true;
-                document.getElementById("phoneSelect").options[0].selected=true;
+               // document.getElementById("citySelect").options[0].selected=true;
+               // document.getElementById("phoneSelect").options[0].selected=true;
             }
             if(document.getElementById('cost').className == 'input error')
                 document.getElementById('cost').classList.remove('error');
@@ -516,13 +516,10 @@ function editTable(divId){
     else{
         document.getElementById('titleFormTalking').textContent = "Изменение разговора";
         addSelectCitiesAndPhone();
-       // var phone = selectedRow.cells[1].textContent;
-       // $("#phoneSelect option[value=phone]").prop('selected', true);
-        //$("#phoneSelect option[value=" + phone + "]").attr('selected', 'true').text(text);
-       // var t = $('#phoneSelect');
-       //$('#phoneSelect').val("d");
-       // var city = selectedRow.cells[2].textContent;
-       // $("select#citySelect").val(city);
+        var phone = selectedRow.cells[1].textContent;
+        $('#phoneSelect').val(phone);
+        var city = selectedRow.cells[2].textContent;
+        $("#citySelect").val(city);
         document.getElementById('min').value = selectedRow.cells[3].textContent;
         document.getElementById('dateTalking').value = selectedRow.cells[4].textContent;
         document.getElementById('timeTalking').value = selectedRow.cells[5].textContent;
@@ -763,14 +760,11 @@ function addSelectCities() {
         type: 'GET',
 
         success: function (response) {
-            for(var i=0; i< response.length; i++)
-                cities.push(response[i].cityName);
-            var CityObj = document.getElementById("cityNameSelect");
-            var selind = CityObj.options.selectedIndex;
-            CityObj.options.length = 0;
-            for (var n = 0; n < cities.length; n++)
-                CityObj[n] = new Option(cities[n], n);
-            CityObj.options[0].selected=true;
+            var list = $("#citySelect");
+            $("#citySelect > option").remove();
+            for (var i = 0; i < response.length; i++) {
+                list.append('<option>' + response[i].cityName + '</option>');
+            }
         },
         error: function (response) {
             alert(response);
@@ -1091,14 +1085,11 @@ function addSelectCitiesAndPhone() {
         type: 'GET',
 
         success: function (response) {
-            for(var i=0; i< response.length; i++)
-                cities.push(response[i].cityName);
-            var CityObj = document.getElementById("citySelect");
-            var selind = CityObj.options.selectedIndex;
-            CityObj.options.length = 0;
-            for (var n = 0; n < cities.length; n++)
-                CityObj[n] = new Option(cities[n], n);
-            CityObj.options[0].selected=true;
+            var list = $("#citySelect");
+            $("#citySelect > option").remove();
+            for (var i = 0; i < response.length; i++) {
+                list.append('<option>' + response[i].cityName + '</option>');
+            }
         },
         error: function (response) {
             alert(response);
@@ -1106,17 +1097,15 @@ function addSelectCitiesAndPhone() {
     });
     $.ajax({
         url: "talking?action=getPhone",
+        async: false,
         type: 'GET',
 
         success: function (response) {
-            for(var i=0; i< response.length; i++)
-                phone.push(response[i].phone);
-            var PhoneObj = document.getElementById("phoneSelect");
-            var selind = PhoneObj.options.selectedIndex;
-            PhoneObj.options.length = 0;
-            for (var n = 0; n < phone.length; n++)
-                PhoneObj[n] = new Option(phone[n], n);
-            PhoneObj.options[0].selected=true;
+            var list = $("#phoneSelect");
+            $("#phoneSelect > option").remove();
+            for (var i = 0; i < response.length; i++) {
+                list.append('<option>' + response[i].phone + '</option>');
+            }
         },
         error: function (response) {
             alert(response);
@@ -1147,8 +1136,6 @@ function addTalking(phone, city, min, date, time, cost) {
                         document.getElementById('timeTalking').value = "00:00";
                         document.getElementById('cost').value = "";
                         document.getElementById('min').value = "";
-                        document.getElementById("citySelect").options[0].selected=true;
-                        document.getElementById("phoneSelect").options[0].selected=true;
                         deleteTable('tableTalking');
                         selectTalking();
                         showForm("formTalking", false);
@@ -1175,8 +1162,6 @@ function addTalking(phone, city, min, date, time, cost) {
                         document.getElementById('timeTalking').value = "00:00";
                         document.getElementById('cost').value = "";
                         document.getElementById('min').value = "";
-                        document.getElementById("citySelect").options[0].selected=true;
-                        document.getElementById("phoneSelect").options[0].selected=true;
                         deleteTable('tableTalking');
                         selectTalking();
                         showForm("formTalking", false);

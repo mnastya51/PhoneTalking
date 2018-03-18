@@ -27,9 +27,9 @@ import java.util.ArrayList;
                 Statement statement = connection.createStatement();
                 Talking talking = (Talking) T;
                 statement.executeUpdate(String.format("UPDATE  \"phoneTalking\".\"talking\" SET abonentid =" +
-                                "(select abonentid from \"phoneTalking\".\"abonent\" where phone = \'%s\'), talkcost = \'s\', cityid =" +
+                                "(select abonentid from \"phoneTalking\".\"abonent\" where phone = \'%s\'), talkcost = \'%s\', cityid =" +
                                 "(select cityid FROM \"phoneTalking\".\"city\" where cityname = \'%s\')," +
-                        "mincount = \'d\', talkdate = \'s\', talktime = \'s\' where talkid = \'d\'", talking.getPhoneAbonent(), talking.getCostTalk(),
+                        "mincount = \'%d\', talkdate = \'%s\', talktime = \'%s\' where talkid = \'%d\'", talking.getPhoneAbonent(), talking.getCostTalk(),
                         talking.getCityName(), talking.getMinCount(), talking.getTalkDate(), talking.getTalkTime(), talking.getTalkId()));
             }
         }
