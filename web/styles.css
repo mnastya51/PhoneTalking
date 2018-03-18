@@ -31,7 +31,7 @@ body{
 }
 
 #buttons{
-    top: -625px;
+    top: -530px;
     margin-left: 40%;
     padding: 0;
     list-style-type: none;
@@ -74,7 +74,7 @@ body{
 }
 table{
     position: relative;
-    top: -600px;
+    top: -520px;
     margin-left: 38%;
     font-family: "Lucida Sans Unicode", Sans-Serif;
     font-size: 20px;
@@ -203,4 +203,41 @@ tr td:last-child {
     top: 115px;
     width: 25px;
     height: 25px;
+}
+
+.inputFiltr{
+    position: relative;
+    top: -32px;
+    left: 160px;
+    width: 150px;
+    height: 25px;
+ }
+
+.fieldFiltr{
+    position: relative;
+    width: 150px;
+    height: 25px;
+}
+.buttonOkFiltr{
+    position: relative;
+    top: -30px;
+    left: 180px;
+    width: 60px;
+    height: 40px;
+    font-size: 20px;
+    background-color: sandybrown;
+    cursor:pointer;
+}
+
+.buttonOkFiltr:hover{
+    opacity: 0.5;
+}
+
+.filtr{
+    font-size: 20px;
+    position: absolute;
+    top: 20px;
+    left: 530px;
+    width: 1000px;
+    height: 1000px;
 }

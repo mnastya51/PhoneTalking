@@ -33,6 +33,9 @@ public class CityServlet extends HttpServlet {
             case "sort":
                 actionSort(resp, req.getParameter("value"));
                 break;
+            case "filtr":
+                actionFiltr(resp, req.getParameter("value"));
+                break;
         }
     }
 
@@ -86,6 +89,20 @@ public class CityServlet extends HttpServlet {
         DAOCity daoCity = new DAOCity();
         try {
             List<City> cities = daoCity.sort(value);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(gson.toJson(cities));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionFiltr(HttpServletResponse resp, String value) {
+        DAOCity daoCity = new DAOCity();
+        try {
+            List<City> cities = daoCity.filtr(value);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(gson.toJson(cities));

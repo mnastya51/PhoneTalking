@@ -35,6 +35,9 @@ public class AbonentServlet extends HttpServlet {
             case "sort":
                 actionSort(resp,req.getParameter("value"), req.getParameter("field"));
                 break;
+            case "filtr":
+                actionFiltr(resp, req.getParameter("fio"), req.getParameter("phone"), req.getParameter("address"), Boolean.valueOf(req.getParameter("facility")));
+                break;
         }
     }
 
@@ -109,6 +112,22 @@ public class AbonentServlet extends HttpServlet {
             resp.getWriter().write(gson.toJson(abonents));
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionFiltr(HttpServletResponse resp, String fio, String phone, String address, boolean facility) {
+        DAOAbonent daoAbonent = new DAOAbonent();
+        try {
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            try {
+                List<Abonent> abonents =  daoAbonent.filtr(new Abonent(phone, fio, address, facility));
+                resp.getWriter().write(gson.toJson(abonents));
+            } catch (SQLException e) {
+                resp.getWriter().write(gson.toJson(1));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

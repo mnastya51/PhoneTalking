@@ -213,7 +213,7 @@ function selectAbonent() {
         url: "abonent?action=get",
         type: 'GET',
         success: function (response) {
-            crateTableAbonent(response)
+            createTableAbonent(response)
         },
         error: function (response) {
             alert(response);
@@ -221,7 +221,7 @@ function selectAbonent() {
     });
 }
 
-function crateTableAbonent(response) {
+function createTableAbonent(response) {
     var table = document.createElement("table");
     table.id = 'tableAbonent';
     table.style.marginLeft = "18%";
@@ -285,7 +285,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[0] = true;
                     },
                     error: function (responseSort) {
@@ -300,7 +300,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[0] = false;
                     },
                     error: function (responseSort) {
@@ -319,7 +319,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[1] = true;
                     },
                     error: function (responseSort) {
@@ -334,7 +334,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[1] = false;
                     },
                     error: function (responseSort) {
@@ -353,7 +353,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[2] = true;
                     },
                     error: function (responseSort) {
@@ -368,7 +368,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[2] = false;
                     },
                     error: function (responseSort) {
@@ -387,7 +387,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[3] = true;
                     },
                     error: function (responseSort) {
@@ -402,7 +402,7 @@ function crateTableAbonent(response) {
 
                     success: function (responseSort) {
                         deleteTable('tableAbonent');
-                        crateTableAbonent(responseSort);
+                        createTableAbonent(responseSort);
                         clickSortMas[3] = false;
                     },
                     error: function (responseSort) {
@@ -1193,6 +1193,36 @@ function deleteTalking(){
                 alert("Данная запись используется в других таблицах!");
             deleteTable('tableTalking');
             selectTalking();
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}
+
+function filtrCity(city) {
+    $.ajax({
+        url: "city?action=filtr&value=" + city,
+        type: 'GET',
+
+        success: function (response) {
+            deleteTable('tableCity');
+            createTableCity(response);
+        },
+        error: function (response) {
+            alert(response);
+        }
+    });
+}
+
+function filtrAbonent(fio, phone, address, facility){
+    $.ajax({
+        url: "abonent?action=filtr&fio=" + fio + "&phone=" + phone + "&address=" + address + "&facility=" + facility,
+        type: 'GET',
+
+        success: function (response) {
+                deleteTable('tableAbonent');
+                createTableAbonent(response);
         },
         error: function (response) {
             alert(response);

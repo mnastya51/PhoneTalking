@@ -21,7 +21,9 @@
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
 <div class = "filtr">
-
+    <div class ="fieldFiltr">Наименование:</div>
+    <input class ="inputFiltr" id ="cityNameFiltr">
+    <button class = "buttonOkFiltr" onclick="filtrCity(document.getElementById('cityNameFiltr').value)">ОК</button>
 </div>
 <ul id="buttons">
     <li id = "addCity" onclick = "showForm('formCity', false)">Добавить</li>

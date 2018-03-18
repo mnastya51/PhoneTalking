@@ -20,6 +20,20 @@
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
+<div class = "filtr" style="left: 220px">
+    <div class ="fieldFiltr">ФИО:</div>
+    <input class ="inputFiltr" style="left: 60px; top: -26px" id ="fioFiltr">
+    <div class ="fieldFiltr" style="left: 220px; top: -50px">Телефон:</div>
+    <input class ="inputFiltr" style="left: 310px; top: -75px" id ="phoneFiltr">
+    <div class ="fieldFiltr" style="left: 470px; top: -100px">Адрес:</div>
+    <input class ="inputFiltr" style="left: 535px; top: -125px" id ="addressFiltr">
+    <div class ="fieldFiltr" style="left: 695px; top: -150px">Льготы:</div>
+    <input type="checkbox" style="position:relative; left: 765px; top: -178px" class="checkbox" id ="facilityFiltr">
+    <button class = "buttonOkFiltr" style="left: 770px; top: -185px" onclick="filtrAbonent(document.getElementById('fioFiltr').value,
+                document.getElementById('phoneFiltr').value,
+                document.getElementById('addressFiltr').value,
+                document.getElementById('facilityFiltr').checked)">ОК</button>
+</div>
 <ul id="buttons">
     <li id = "addAbonent" onclick = "showForm('formAbonent', false)">Добавить</li>
     <li id = "editAbonent" onclick = "showForm('formAbonent', true)">Изменить</li>

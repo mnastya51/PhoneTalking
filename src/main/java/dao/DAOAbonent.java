@@ -2,6 +2,7 @@ package dao;
 
 import entities.Abonent;
 import entities.Entity;
+import utils.FilterUtils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -114,4 +115,36 @@ public class DAOAbonent  extends Connect implements DAOInterface{
             return list;
         }
     }
+
+    public ArrayList<Abonent> filtr(Entity T) throws SQLException {
+        try (Connection connection = connect()){
+            String phone = "";
+            String fio = "";
+            String address = "";
+            Boolean facility = false;
+            int id =0;
+            Abonent ab = (Abonent) T;
+            Statement statement = connection.createStatement();
+            FilterUtils.FilterFormatter filterFormatter = new FilterUtils.FilterFormatter();
+            filterFormatter.addValue("fio", ab.getFio());
+            filterFormatter.addValue("phone", ab.getPhone());
+            filterFormatter.addValue("address", ab.getAddress());
+            filterFormatter.addValue("facility", ab.getFacility());
+
+            ResultSet rs = statement.executeQuery(filterFormatter.getFormattedRequestForAbonentDB());
+            ArrayList<Abonent> list = new ArrayList<>();
+            while (rs.next()) {
+                phone = rs.getString("phone");
+                fio =  rs.getString("fio");
+                address =  rs.getString("address");
+                facility =  rs.getBoolean("facility");
+                id =  rs.getInt("abonentid");
+                Abonent abonent = new Abonent (id,phone, fio, address, facility);
+                list.add(abonent);
+            }
+            return list;
+        }
+    }
+
+
 }
