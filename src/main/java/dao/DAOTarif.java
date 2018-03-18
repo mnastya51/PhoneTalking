@@ -55,4 +55,80 @@ public class DAOTarif extends Connect implements DAOInterface{
             return list;
         }
     }
+    public ArrayList<Tarif> sort(String value, String field) throws SQLException {
+        try (Connection connection = connect()) {
+            String nameCity = "";
+            String startPeriod = "";
+            String finishPeriod = "";
+            Double cost = -1.0;
+            Statement statement = connection.createStatement();
+            ResultSet rs = null;
+            if(value.equals("asc")) {
+                switch (field) {
+                    case "city":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"city\".cityname"));
+                        break;
+                    case "startPeriod":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"tarif\".periodStart"));
+                        break;
+                    case "finishPeriod":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"tarif\".periodend"));
+                        break;
+                    case "minCost":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"tarif\".mincost"));
+                        break;
+                }
+            }
+            else {
+                switch (field) {
+                    case "city":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"city\".cityname desc"));
+                        break;
+                    case "startPeriod":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"tarif\".periodStart desc"));
+                        break;
+                    case "finishPeriod":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"tarif\".periodend desc"));
+                        break;
+                    case "minCost":
+                        rs = statement.executeQuery(String.format("SELECT \"phoneTalking\".\"city\".cityname, \"phoneTalking\".\"tarif\".periodStart," +
+                                "\"phoneTalking\".\"tarif\".periodend,  \"phoneTalking\".\"tarif\".mincost FROM \"phoneTalking\".\"tarif\" JOIN " +
+                                "\"phoneTalking\".\"city\" on \"phoneTalking\".\"city\".cityid = \"phoneTalking\".\"tarif\".cityid " +
+                                "order by \"phoneTalking\".\"tarif\".mincost desc"));
+                        break;
+                }
+            }
+            ArrayList<Tarif> list = new ArrayList<>();
+            while (rs.next()) {
+                nameCity = rs.getString("cityname");
+                startPeriod = rs.getString("periodStart");
+                finishPeriod = rs.getString("periodend");
+                cost = rs.getDouble("mincost");
+                Tarif tarif = new Tarif (startPeriod, finishPeriod, cost, nameCity);
+                list.add(tarif);
+            }
+            return list;
+        }
+    }
 }

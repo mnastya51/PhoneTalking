@@ -32,6 +32,9 @@ public class AbonentServlet extends HttpServlet {
             case "update":
                 actionUpdate(resp, req.getParameter("fio"), req.getParameter("phone"), req.getParameter("address"), Boolean.valueOf(req.getParameter("facility")), req.getParameter("id"));
                 break;
+            case "sort":
+                actionSort(resp,req.getParameter("value"), req.getParameter("field"));
+                break;
         }
     }
 
@@ -92,6 +95,20 @@ public class AbonentServlet extends HttpServlet {
             } catch (SQLException e) {
                 resp.getWriter().write(gson.toJson(1));
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionSort(HttpServletResponse resp, String value, String field) {
+        DAOAbonent daoAbonent = new DAOAbonent();
+        try {
+            List<Abonent> abonents = daoAbonent.sort(value, field);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(gson.toJson(abonents));
+        } catch (SQLException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

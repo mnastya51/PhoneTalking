@@ -1,6 +1,6 @@
 var selectedRow ;
 var isEdit = false;
-var clickSort = false;
+var clickSortMas = [false, false, false, false, false, false];
 function redirecting(path) {
     window.location.href = path;
 }
@@ -52,7 +52,7 @@ function createTableCity(response) {
     }
     $(tr.cells[1]).click(
         function()    {
-            if(!clickSort) {
+            if(!clickSortMas[0]) {
                 $.ajax({
                     url: "city?action=sort&value=" + "asc",
                     type: 'GET',
@@ -60,7 +60,7 @@ function createTableCity(response) {
                     success: function (responseSort) {
                         deleteTable('tableCity');
                         createTableCity(responseSort);
-                        clickSort = true;
+                        clickSortMas[0] = true;
                     },
                     error: function (responseSort) {
                         alert(responseSort);
@@ -75,7 +75,7 @@ function createTableCity(response) {
                     success: function (responseSort) {
                         deleteTable('tableCity');
                         createTableCity(responseSort);
-                        clickSort = false;
+                        clickSortMas[0] = false;
                     },
                     error: function (responseSort) {
                         alert(responseSort);
@@ -84,7 +84,6 @@ function createTableCity(response) {
             }
         }
     );
-    return tr;
 }
 function deleteTable(table) {
     var table = document.getElementById(table);
@@ -214,60 +213,7 @@ function selectAbonent() {
         url: "abonent?action=get",
         type: 'GET',
         success: function (response) {
-            var table = document.createElement("table");
-            table.id = 'tableAbonent';
-            table.style.marginLeft = "18%";
-            document.body.appendChild(table);
-            var tr = document.createElement("tr");
-            var th = document.createElement("th");
-            th.appendChild(document.createTextNode("Код"));
-            var th1 = document.createElement("th");
-            th1.appendChild(document.createTextNode("ФИО"));
-            var th2 = document.createElement("th");
-            th2.appendChild(document.createTextNode("Телефон"));
-            var th3 = document.createElement("th");
-            th3.appendChild(document.createTextNode("Адрес"));
-            var th4 = document.createElement("th");
-            th4.appendChild(document.createTextNode("Льготы"));
-            tr.appendChild(th);
-            tr.appendChild(th1);
-            tr.appendChild(th2);
-            tr.appendChild(th3);
-            tr.appendChild(th4);
-            table.appendChild(tr);
-            for(var i=0; i< response.length; i++){
-                var row = document.createElement("tr");
-                var td1 = document.createElement("td");
-                td1.appendChild(document.createTextNode(response[i].id));
-                var td2 = document.createElement("td");
-                td2.appendChild(document.createTextNode(response[i].fio));
-                var td3 = document.createElement("td");
-                td3.appendChild (document.createTextNode(response[i].phone));
-                var td4 = document.createElement("td");
-                td4.appendChild (document.createTextNode(response[i].address));
-                var td5 = document.createElement("td");
-                if(response[i].facility === false)
-                    td5.appendChild (document.createTextNode("нет"));
-                else
-                    td5.appendChild (document.createTextNode("да"));
-                row.appendChild(td1);
-                row.appendChild(td2);
-                row.appendChild(td3);
-                row.appendChild(td4);
-                row.appendChild(td5);
-                table.appendChild(row);
-                $(row).click(
-                    function()    {
-                        if(selectedRow ==="")
-                            selectedRow = this;
-                        else if(selectedRow !== this){
-                            $(selectedRow).removeClass('selected');
-                            $(this).addClass('selected');
-                            selectedRow = this;
-                        }
-                    }
-                );
-            }
+            crateTableAbonent(response)
         },
         error: function (response) {
             alert(response);
@@ -275,8 +221,197 @@ function selectAbonent() {
     });
 }
 
-function crateTableAbonent() {
-    
+function crateTableAbonent(response) {
+    var table = document.createElement("table");
+    table.id = 'tableAbonent';
+    table.style.marginLeft = "18%";
+    document.body.appendChild(table);
+    var tr = document.createElement("tr");
+    var th = document.createElement("th");
+    th.appendChild(document.createTextNode("Код"));
+    var th1 = document.createElement("th");
+    th1.appendChild(document.createTextNode("ФИО"));
+    var th2 = document.createElement("th");
+    th2.appendChild(document.createTextNode("Телефон"));
+    var th3 = document.createElement("th");
+    th3.appendChild(document.createTextNode("Адрес"));
+    var th4 = document.createElement("th");
+    th4.appendChild(document.createTextNode("Льготы"));
+    tr.appendChild(th);
+    tr.appendChild(th1);
+    tr.appendChild(th2);
+    tr.appendChild(th3);
+    tr.appendChild(th4);
+    table.appendChild(tr);
+    for(var i=0; i< response.length; i++){
+        var row = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.appendChild(document.createTextNode(response[i].id));
+        var td2 = document.createElement("td");
+        td2.appendChild(document.createTextNode(response[i].fio));
+        var td3 = document.createElement("td");
+        td3.appendChild (document.createTextNode(response[i].phone));
+        var td4 = document.createElement("td");
+        td4.appendChild (document.createTextNode(response[i].address));
+        var td5 = document.createElement("td");
+        if(response[i].facility === false)
+            td5.appendChild (document.createTextNode("нет"));
+        else
+            td5.appendChild (document.createTextNode("да"));
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
+        row.appendChild(td5);
+        table.appendChild(row);
+        $(row).click(
+            function()    {
+                if(selectedRow ==="")
+                    selectedRow = this;
+                else if(selectedRow !== this){
+                    $(selectedRow).removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedRow = this;
+                }
+            }
+        );
+    }
+    $(tr.cells[1]).click(
+        function()    {
+            if(!clickSortMas[0]) {
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "asc" + "&field=" + "fio",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[0] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "desc" + "&field=" + "fio",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[0] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[2]).click(
+        function()    {
+            if(!clickSortMas[1]) {
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "asc" + "&field=" + "phone",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[1] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "desc" + "&field=" + "phone",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[1] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[3]).click(
+        function()    {
+            if(!clickSortMas[2]) {
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "asc" + "&field=" + "address",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[2] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "desc" + "&field=" + "address",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[2] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[4]).click(
+        function()    {
+            if(!clickSortMas[3]) {
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "asc" + "&field=" + "facility",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[3] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "abonent?action=sort&value=" + "desc" + "&field=" + "facility",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableAbonent');
+                        crateTableAbonent(responseSort);
+                        clickSortMas[3] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
 }
 
 function addAndEditAbonent(fio, phone, address, facility) {
@@ -401,55 +536,195 @@ function selectTarif() {
         type: 'GET',
 
         success: function (response) {
-            var table = document.createElement("table");
-            table.id = 'tableTarif';
-            document.body.appendChild(table);
-            var tr = document.createElement("tr");
-            var th2 = document.createElement("th");
-            th2.appendChild(document.createTextNode("Город"));
-            var th3 = document.createElement("th");
-            th3.appendChild(document.createTextNode("Начало периода"));
-            var th4 = document.createElement("th");
-            th4.appendChild(document.createTextNode("Конец периода"));
-            var th5 = document.createElement("th");
-            th5.appendChild(document.createTextNode("Цена за минуту"));
-            tr.appendChild(th2);
-            tr.appendChild(th3);
-            tr.appendChild(th4);
-            tr.appendChild(th5);
-            table.appendChild(tr);
-            for(var i=0; i< response.length; i++){
-                var row = document.createElement("tr");
-                var td1 = document.createElement("td");
-                td1.appendChild(document.createTextNode(response[i].cityName));
-                var td2 = document.createElement("td");
-                td2.appendChild (document.createTextNode(response[i].startPeriod.substring(0,5)));
-                var td3 = document.createElement("td");
-                td3.appendChild (document.createTextNode(response[i].finishPeriod.substring(0,5)));
-                var td4 = document.createElement("td");
-                td4.appendChild (document.createTextNode(response[i].cost));
-                row.appendChild(td1);
-                row.appendChild(td2);
-                row.appendChild(td3);
-                row.appendChild(td4);
-                table.appendChild(row);
-                $(row).click(
-                    function()    {
-                        if(selectedRow ==="")
-                            selectedRow = this;
-                        else if(selectedRow !== this){
-                            $(selectedRow).removeClass('selected');
-                            $(this).addClass('selected');
-                            selectedRow = this;
-                        }
-                    }
-                );
-            }
+            createTableTarif(response);
         },
         error: function (response) {
             alert(response);
         }
     });
+}
+
+function createTableTarif(response) {
+    var table = document.createElement("table");
+    table.id = 'tableTarif';
+    document.body.appendChild(table);
+    var tr = document.createElement("tr");
+    var th2 = document.createElement("th");
+    th2.appendChild(document.createTextNode("Город"));
+    var th3 = document.createElement("th");
+    th3.appendChild(document.createTextNode("Начало периода"));
+    var th4 = document.createElement("th");
+    th4.appendChild(document.createTextNode("Конец периода"));
+    var th5 = document.createElement("th");
+    th5.appendChild(document.createTextNode("Цена за минуту"));
+    tr.appendChild(th2);
+    tr.appendChild(th3);
+    tr.appendChild(th4);
+    tr.appendChild(th5);
+    table.appendChild(tr);
+    for(var i=0; i< response.length; i++){
+        var row = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.appendChild(document.createTextNode(response[i].cityName));
+        var td2 = document.createElement("td");
+        td2.appendChild (document.createTextNode(response[i].startPeriod.substring(0,5)));
+        var td3 = document.createElement("td");
+        td3.appendChild (document.createTextNode(response[i].finishPeriod.substring(0,5)));
+        var td4 = document.createElement("td");
+        td4.appendChild (document.createTextNode(response[i].cost));
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
+        table.appendChild(row);
+        $(row).click(
+            function()    {
+                if(selectedRow ==="")
+                    selectedRow = this;
+                else if(selectedRow !== this){
+                    $(selectedRow).removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedRow = this;
+                }
+            }
+        );
+    }
+    $(tr.cells[0]).click(
+        function()    {
+            if(!clickSortMas[0]) {
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "asc" + "&field=" + "city",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[0] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "desc" + "&field=" + "city",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[0] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[1]).click(
+        function()    {
+            if(!clickSortMas[1]) {
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "asc" + "&field=" + "startPeriod",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[1] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "desc" + "&field=" + "startPeriod",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[1] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[2]).click(
+        function()    {
+            if(!clickSortMas[2]) {
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "asc" + "&field=" + "finishPeriod",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[2] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "desc" + "&field=" + "finishPeriod",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[2] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[3]).click(
+        function()    {
+            if(!clickSortMas[3]) {
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "asc" + "&field=" + "minCost",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[3] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "tarif?action=sort&value=" + "desc" + "&field=" + "minCost",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTarif');
+                        createTableTarif(responseSort);
+                        clickSortMas[3] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
 }
 
 function addTarif(city, startPeriod, finishPeriod, minCost) {
@@ -531,73 +806,281 @@ function selectTalking(){
         type: 'GET',
 
         success: function (response) {
-            var table = document.createElement("table");
-            table.id = 'tableTalking';
-            document.body.appendChild(table);
-            var tr = document.createElement("tr");
-            var th1 = document.createElement("th");
-            th1.appendChild(document.createTextNode("Код"));
-            var th2 = document.createElement("th");
-            th2.appendChild(document.createTextNode("Телефон"));
-            var th3 = document.createElement("th");
-            th3.appendChild(document.createTextNode("Город"));
-            var th4 = document.createElement("th");
-            th4.appendChild(document.createTextNode("Количество минут"));
-            var th5 = document.createElement("th");
-            th5.appendChild(document.createTextNode("Дата"));
-            var th6 = document.createElement("th");
-            th6.appendChild(document.createTextNode("Время"));
-            var th7 = document.createElement("th");
-            th7.appendChild(document.createTextNode("Цена"));
-            tr.appendChild(th1);
-            tr.appendChild(th2);
-            tr.appendChild(th3);
-            tr.appendChild(th4);
-            tr.appendChild(th5);
-            tr.appendChild(th6);
-            tr.appendChild(th7);
-            table.appendChild(tr);
-            for(var i=0; i< response.length; i++){
-                var row = document.createElement("tr");
-                var td1 = document.createElement("td");
-                td1.appendChild(document.createTextNode(response[i].talkId));
-                var td2 = document.createElement("td");
-                td2.appendChild(document.createTextNode(response[i].phoneAbonent));
-                var td3 = document.createElement("td");
-                td3.appendChild(document.createTextNode(response[i].cityName));
-                var td4 = document.createElement("td");
-                td4.appendChild(document.createTextNode(response[i].minCount));
-                var td5 = document.createElement("td");
-                td5.appendChild(document.createTextNode(response[i].talkDate));
-                var td6 = document.createElement("td");
-                td6.appendChild (document.createTextNode(response[i].talkTime.substring(0,5)));
-                var td7 = document.createElement("td");
-                td7.appendChild (document.createTextNode(response[i].talkCost));
-                row.appendChild(td1);
-                row.appendChild(td2);
-                row.appendChild(td3);
-                row.appendChild(td4);
-                row.appendChild(td5);
-                row.appendChild(td6);
-                row.appendChild(td7);
-                table.appendChild(row);
-                $(row).click(
-                    function()    {
-                        if(selectedRow ==="")
-                            selectedRow = this;
-                        else if(selectedRow !== this){
-                            $(selectedRow).removeClass('selected');
-                            $(this).addClass('selected');
-                            selectedRow = this;
-                        }
-                    }
-                );
-            }
+            createTableTalking(response);
         },
         error: function (response) {
             alert(response);
         }
     });
+}
+
+function createTableTalking(response) {
+    var table = document.createElement("table");
+    table.id = 'tableTalking';
+    document.body.appendChild(table);
+    var tr = document.createElement("tr");
+    var th1 = document.createElement("th");
+    th1.appendChild(document.createTextNode("Код"));
+    var th2 = document.createElement("th");
+    th2.appendChild(document.createTextNode("Телефон"));
+    var th3 = document.createElement("th");
+    th3.appendChild(document.createTextNode("Город"));
+    var th4 = document.createElement("th");
+    th4.appendChild(document.createTextNode("Количество минут"));
+    var th5 = document.createElement("th");
+    th5.appendChild(document.createTextNode("Дата"));
+    var th6 = document.createElement("th");
+    th6.appendChild(document.createTextNode("Время"));
+    var th7 = document.createElement("th");
+    th7.appendChild(document.createTextNode("Цена"));
+    tr.appendChild(th1);
+    tr.appendChild(th2);
+    tr.appendChild(th3);
+    tr.appendChild(th4);
+    tr.appendChild(th5);
+    tr.appendChild(th6);
+    tr.appendChild(th7);
+    table.appendChild(tr);
+    for(var i=0; i< response.length; i++){
+        var row = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.appendChild(document.createTextNode(response[i].talkId));
+        var td2 = document.createElement("td");
+        td2.appendChild(document.createTextNode(response[i].phoneAbonent));
+        var td3 = document.createElement("td");
+        td3.appendChild(document.createTextNode(response[i].cityName));
+        var td4 = document.createElement("td");
+        td4.appendChild(document.createTextNode(response[i].minCount));
+        var td5 = document.createElement("td");
+        td5.appendChild(document.createTextNode(response[i].talkDate));
+        var td6 = document.createElement("td");
+        td6.appendChild (document.createTextNode(response[i].talkTime.substring(0,5)));
+        var td7 = document.createElement("td");
+        td7.appendChild (document.createTextNode(response[i].talkCost));
+        row.appendChild(td1);
+        row.appendChild(td2);
+        row.appendChild(td3);
+        row.appendChild(td4);
+        row.appendChild(td5);
+        row.appendChild(td6);
+        row.appendChild(td7);
+        table.appendChild(row);
+        $(row).click(
+            function()    {
+                if(selectedRow ==="")
+                    selectedRow = this;
+                else if(selectedRow !== this){
+                    $(selectedRow).removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedRow = this;
+                }
+            }
+        );
+    }
+    $(tr.cells[1]).click(
+        function()    {
+            if(!clickSortMas[0]) {
+                $.ajax({
+                    url: "talking?action=sort&value=" + "asc" + "&field=" + "phone",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[0] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "talking?action=sort&value=" + "desc" + "&field=" + "phone",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[0] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[2]).click(
+        function()    {
+            if(!clickSortMas[1]) {
+                $.ajax({
+                    url: "talking?action=sort&value=" + "asc" + "&field=" + "city",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[1] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "talking?action=sort&value=" + "desc" + "&field=" + "city",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[1] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[3]).click(
+        function()    {
+            if(!clickSortMas[2]) {
+                $.ajax({
+                    url: "talking?action=sort&value=" + "asc" + "&field=" + "min",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[2] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "talking?action=sort&value=" + "desc" + "&field=" + "min",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[2] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[4]).click(
+        function()    {
+            if(!clickSortMas[3]) {
+                $.ajax({
+                    url: "talking?action=sort&value=" + "asc" + "&field=" + "date",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[3] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "talking?action=sort&value=" + "desc" + "&field=" + "date",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[3] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[5]).click(
+        function()    {
+            if(!clickSortMas[4]) {
+                $.ajax({
+                    url: "talking?action=sort&value=" + "asc" + "&field=" + "time",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[4] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "talking?action=sort&value=" + "desc" + "&field=" + "time",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[4] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
+    $(tr.cells[6]).click(
+        function()    {
+            if(!clickSortMas[5]) {
+                $.ajax({
+                    url: "talking?action=sort&value=" + "asc" + "&field=" + "cost",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[5] = true;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url: "talking?action=sort&value=" + "desc" + "&field=" + "cost",
+                    type: 'GET',
+
+                    success: function (responseSort) {
+                        deleteTable('tableTalking');
+                        createTableTalking(responseSort);
+                        clickSortMas[5] = false;
+                    },
+                    error: function (responseSort) {
+                        alert(responseSort);
+                    }
+                });
+            }
+        }
+    );
 }
 
 function addSelectCitiesAndPhone() {
@@ -705,14 +1188,14 @@ function addTalking(phone, city, min, date, time, cost) {
             });
         }
     }
-    else if(fio === "" && phone === ""){
-        document.getElementById('abonentNameInput').classList.add('error');
-        document.getElementById('abonentPhoneInput').classList.add('error');
+    if(cost === "" && min === ""){
+        document.getElementById('cost').classList.add('error');
+        document.getElementById('min').classList.add('error');
     }
-    else if(fio === "")
-        document.getElementById('abonentNameInput').classList.add('error');
-    else if(phone === "")
-        document.getElementById('abonentPhoneInput').classList.add('error');
+    else if(cost === "")
+        document.getElementById('cost').classList.add('error');
+    else if(min === "")
+        document.getElementById('min').classList.add('error');
 }
 
 function deleteTalking(){

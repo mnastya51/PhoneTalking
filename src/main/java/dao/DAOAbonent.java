@@ -59,4 +59,59 @@ public class DAOAbonent  extends Connect implements DAOInterface{
             return list;
         }
     }
+
+    public ArrayList<Abonent> sort(String value, String field) throws SQLException {
+        try (Connection connection = connect()){
+            String phone = "";
+            String fio = "";
+            String address = "";
+            Boolean facility = false;
+            int id =0;
+            Statement statement = connection.createStatement();
+            ResultSet rs = null;
+            if(value.equals("asc")) {
+                switch (field) {
+                    case "fio":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by fio"));
+                        break;
+                    case "phone":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by phone"));
+                        break;
+                    case "address":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by address"));
+                        break;
+                    case "facility":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by facility"));
+                        break;
+                }
+            }
+            else{
+                switch (field) {
+                    case "fio":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by fio desc"));
+                        break;
+                    case "phone":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by phone desc"));
+                        break;
+                    case "address":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by address desc"));
+                        break;
+                    case "facility":
+                        rs = statement.executeQuery(String.format("SELECT * FROM \"phoneTalking\".\"abonent\" order by facility desc"));
+                        break;
+                }
+            }
+            ArrayList<Abonent> list = new ArrayList<>();
+            while (rs.next()) {
+                phone = rs.getString("phone");
+                fio =  rs.getString("fio");
+                address =  rs.getString("address");
+                facility =  rs.getBoolean("facility");
+                id =  rs.getInt("abonentid");
+                Abonent abonent = new Abonent (id,phone, fio, address, facility);
+                list.add(abonent);
+            }
+            return list;
+        }
+    }
 }

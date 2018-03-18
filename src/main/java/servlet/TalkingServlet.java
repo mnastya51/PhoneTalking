@@ -45,6 +45,9 @@ public class TalkingServlet extends HttpServlet {
                 actionUpdate(resp, req.getParameter("phone"), req.getParameter("city"), req.getParameter("min"),
                         req.getParameter("date"), req.getParameter("time"), req.getParameter("cost"), req.getParameter("id"));
                 break;
+            case "sort":
+                actionSort(resp,req.getParameter("value"), req.getParameter("field"));
+                break;
         }
     }
 
@@ -133,6 +136,20 @@ public class TalkingServlet extends HttpServlet {
             } catch (SQLException e) {
                 resp.getWriter().write(gson.toJson(1));
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void actionSort(HttpServletResponse resp, String value, String field) {
+        DAOTalking daoTalking = new DAOTalking();
+        try {
+            List<Talking> talking = daoTalking.sort(value, field);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(gson.toJson(talking));
+        } catch (SQLException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
