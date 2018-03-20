@@ -15,38 +15,39 @@
 </head>
 <body onload = "selectTarif()">
 <ul id = "menu">
-    <li onclick="redirecting('/abonent')">Абоненты</li>
+    <li style = "border-top-right-radius: 20px" onclick="redirecting('/abonent')">Абоненты</li>
     <li onclick="redirecting('/city')">Города</li>
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
-<div class = "filtr" style="left: 220px">
-    <input class ="inputFiltr" style="left: 60px; top: -10px" placeholder = "Город" id ="cityFiltr">
-    <input class ="inputFiltr" style="left: 70px; top: -10px" placeholder = "Начало периода" id ="periodStartFiltr">
-    <input class ="inputFiltr" style="left: 80px; top: -10px" placeholder = "Конец периода"  id ="periodEndFiltr">
-    <input class ="inputFiltr" style="left: 90px; top: -10px" placeholder = "Цена за минуту" id ="minCostFiltr">
-    <button class = "buttonOkFiltr" style="left: 100px; top: -10px" onclick="filterTarif(document.getElementById('cityFiltr').value,
+<div class = "filtr" style="left: 280px">
+    <input class ="inputFiltr" style="left: 60px" placeholder = "Город" id ="cityFiltr">
+    <input class ="inputFiltr" style="left: 70px" placeholder = "Начало периода" id ="periodStartFiltr">
+    <input class ="inputFiltr" style="left: 80px" placeholder = "Конец периода"  id ="periodEndFiltr">
+    <input class ="inputFiltr" style="left: 90px" placeholder = "Цена за минуту" id ="minCostFiltr">
+    <button class = "buttonOkFiltr" style="left: 100px" onclick="filterTarif(document.getElementById('cityFiltr').value,
                 document.getElementById('periodStartFiltr').value,
                 document.getElementById('periodEndFiltr').value,
                 document.getElementById('minCostFiltr').value)">ОК</button>
+    <button class = "buttonOkFiltr" style="left: 110px; width: 150px" onclick="filterTarifAll()">Показать все</button>
 </div>
-<ul id="buttons">
+<ul id="buttons" style="left: 40px">
     <li id = "addTarif" onclick = "showForm('formTarif', false)">Добавить</li>
     <li id = "deleteTarif" onclick = "deleteTarif()">Удалить</li>
 </ul>
 <div class="baseForm" id = "formTarif" style="display: none; width: 325px">
     <div class ="titleForm">Добавление тарифа</div>
     <div class ="close" onclick = "showForm('formTarif', false)" title = "закрыть"></div>
-    <div class = "form" style="height: 180px">
-        <div class ="field">Город:</div>
-        <select class ="input" id ="cityNameSelect" style="width: 150px; height: 25px; left: 160px; top: 30px"></select>
-        <div class ="field">Начало периода:</div>
-        <input class ="input" type="time" value = "00:00" id ="startPeriod" style="width: 150px; left: 160px; top: 60px">
-        <div class ="field">Конец периода:</div>
-        <input class ="input" type="time" value = "00:00" id ="finishPeriod" style="width: 150px; left: 160px; top: 90px">
-        <div class ="field">Цена за минуту:</div>
-        <input class ="input" id ="minCost" style="width: 150px; left: 160px; top: 120px">
-        <button class = "buttonOk" style="left: 140px; top: 150px" onclick="addTarif(document.getElementById('cityNameSelect').options[document.getElementById('cityNameSelect').selectedIndex].text,
+    <div class = "form" style="height: 195px">
+        <div class ="field" style="top: 10px">Город:</div>
+        <select class ="input" id ="cityNameSelect" style="width: 150px; height: 25px; left: 160px"></select>
+        <div class ="field" style="top: 15px">Начало периода:</div>
+        <input class ="input" type="time" value = "00:00" id ="startPeriod" style="width: 150px; left: 160px; top: 63px">
+        <div class ="field" style="top: 20px">Конец периода:</div>
+        <input class ="input" type="time" value = "00:00" id ="finishPeriod" style="width: 150px; left: 160px; top: 95px">
+        <div class ="field" style="top: 25px">Цена за минуту:</div>
+        <input class ="input" id ="minCost" style="width: 150px; left: 160px; top: 127px">
+        <button class = "buttonOk" style="left: 140px; top: 160px" onclick="addTarif(document.getElementById('cityNameSelect').options[document.getElementById('cityNameSelect').selectedIndex].text,
         document.getElementById('startPeriod').value,
         document.getElementById('finishPeriod').value,
         document.getElementById('minCost').value)">ОК</button>

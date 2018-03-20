@@ -13,11 +13,14 @@
     <title>Телефонные переговоры</title>
   </head>
   <body>
-  <ul id = "menu">
-    <li onclick="redirecting('/abonent')">Абоненты</li>
-    <li onclick="redirecting('/city')">Города</li>
-    <li onclick="redirecting('/tarif')">Тарифы</li>
-    <li onclick="redirecting('/talking')">Разговоры</li>
-  </ul>
+  <img class = "impPhone" style="left: 10%">
+  <img class ="impPhone" style="right: 10%">
+  <div class = "mainPage">
+    <div class="titleMainPage">Телефонные переговоры</div>
+    <div class = "page" onclick="redirecting('/abonent')">Абоненты</div>
+    <div class = "page" onclick="redirecting('/city')">Города</div>
+    <div class = "page" onclick="redirecting('/tarif')">Тарифы</div>
+    <div class = "page" onclick="redirecting('/talking')">Разговоры</div>
+  </div>
   </body>
 </html>

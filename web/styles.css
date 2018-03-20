@@ -11,6 +11,8 @@ body{
     align-items: stretch;
     height: 100vh;
     background-color: saddlebrown;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 #menu li{
     border-left: 10px solid saddlebrown;
@@ -31,7 +33,7 @@ body{
 }
 
 #buttons{
-    top: -530px;
+    top: -510px;
     margin-left: 40%;
     padding: 0;
     list-style-type: none;
@@ -74,7 +76,7 @@ body{
 }
 table{
     position: relative;
-    top: -520px;
+    top: -490px;
     margin-left: 38%;
     font-family: "Lucida Sans Unicode", Sans-Serif;
     font-size: 20px;
@@ -84,7 +86,7 @@ table{
     cursor: pointer;
 }
 th {
-    background: #FF6347;
+    background: #FF7F50;
     color: white;
     text-shadow: 0 1px 1px #2D2020;
     padding: 10px 20px;
@@ -130,12 +132,15 @@ tr td:last-child {
     width:335px;
     height:120px;
     background: #DCDCDC;
+    border-radius: 10px;
 }
 
 .form{
     width:inherit;
     height:100px;
     background:white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .titleForm{
@@ -162,7 +167,7 @@ tr td:last-child {
 
 .field{
     position: relative;
-    top: 10px;
+    top: 5px;
     left: 10px;
     width: 150px;
     height: 25px;
@@ -171,18 +176,19 @@ tr td:last-child {
 .input{
     position: absolute;
     left: 150px;
-    top: 35px;
+    top: 30px;
 }
 
 .buttonOk{
     position: absolute;
-    top: 70px;
+    top: 65px;
     left: 150px;
     font-size: 20px;
     width: 60px;
     height: 40px;
     background-color: #DCDCDC;
     cursor:pointer;
+    border-radius: 10px;
 }
 
 .buttonOk:hover{
@@ -199,7 +205,7 @@ tr td:last-child {
 
 .checkbox{
     position: absolute;
-    left: 226px;
+    left: 105px;
     top: 115px;
     width: 25px;
     height: 25px;
@@ -210,7 +216,7 @@ tr td:last-child {
     top: -32px;
     left: 160px;
     width: 150px;
-    height: 25px;
+    height: 30px;
  }
 
 .fieldFiltr{
@@ -221,12 +227,13 @@ tr td:last-child {
 .buttonOkFiltr{
     position: relative;
     top: -30px;
-    left: 180px;
+    left: 170px;
     width: 60px;
     height: 40px;
     font-size: 20px;
-    background-color: sandybrown;
+    background-color: #FF7F50;
     cursor:pointer;
+    border-radius: 10px;
 }
 
 .buttonOkFiltr:hover{
@@ -236,8 +243,43 @@ tr td:last-child {
 .filtr{
     font-size: 20px;
     position: absolute;
-    top: 50px;
-    left: 400px;
-    width: 900px;
+    top: 65px;
+    left: 390px;
+    width: 1000px;
     height: 200px;
+}
+
+.mainPage{
+    margin-left: 30%;
+    margin-top: 10%;
+}
+
+.page{
+    width: 200px;
+    padding-top: 20px;
+    padding-left: 150px;
+    text-align: center;
+    font-size: 40px;
+    color: sienna;
+    cursor: pointer;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.titleMainPage{
+    font-size: 50px;
+    text-transform: uppercase;
+    color:  #402a55;
+    position: absolute;
+    top: 10%;
+    left: 25%;
+}
+
+.impPhone{
+    position: absolute;
+    width:320px;
+    height:300px;
+    top: 30%;
+    background-image: url(images/imgPhone.png);
+    background-size: cover;
 }

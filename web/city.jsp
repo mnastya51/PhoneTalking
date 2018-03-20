@@ -15,7 +15,7 @@
 </head>
 <body onload = "selectCities()">
 <ul id = "menu">
-    <li onclick="redirecting('/abonent')">Абоненты</li>
+    <li style = "border-top-right-radius: 20px" onclick="redirecting('/abonent')">Абоненты</li>
     <li onclick="redirecting('/city')" style="background-color: #808080">Города</li>
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
@@ -23,7 +23,7 @@
 <div class = "filtr">
     <input class ="inputFiltr" placeholder="Город" id ="cityNameFiltr">
     <button class = "buttonOkFiltr" onclick="filterCity(document.getElementById('cityNameFiltr').value)">ОК</button>
-    <button class = "buttonOkFiltr" style="left: 200px; width: 150px" onclick="filterCityAll()">Показать все</button>
+    <button class = "buttonOkFiltr" style="left: 180px; width: 150px" onclick="filterCityAll()">Показать все</button>
 </div>
 <ul id="buttons">
     <li id = "addCity" onclick = "showForm('formCity', false)">Добавить</li>

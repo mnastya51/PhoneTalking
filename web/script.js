@@ -760,8 +760,8 @@ function addSelectCities() {
         type: 'GET',
 
         success: function (response) {
-            var list = $("#citySelect");
-            $("#citySelect > option").remove();
+            var list = $("#cityNameSelect");
+            $("#cityNameSelect > option").remove();
             for (var i = 0; i < response.length; i++) {
                 list.append('<option>' + response[i].cityName + '</option>');
             }
@@ -1230,6 +1230,22 @@ function filterAbonentAll() {
     selectAbonent();
 }
 
+function filterTarifAll() {
+    document.getElementById('minCost').value = "";
+    document.getElementById('startPeriod').value = "00:00";
+    document.getElementById('finishPeriod').value = "00:00";
+    deleteTable('tableTarif');
+    selectTarif();
+}
+
+function filterTalkingAll() {
+    document.getElementById('abonentNameInput').value = "";
+    document.getElementById('abonentPhoneInput').value = "";
+    document.getElementById('abonentAddressInput').value = "";
+    document.getElementById('abonentFacilityInput').checked = false;
+    deleteTable('tableTalking');
+    selectTalking();
+}
 
 function filterAbonent(fio, phone, address, facility){
     $.ajax({
