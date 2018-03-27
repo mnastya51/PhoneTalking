@@ -1,5 +1,6 @@
 body{
-    background-color: #f7cfa1;
+    background-color: lemonchiffon;
+    height: 610px;
 }
 
 #menu{
@@ -9,15 +10,13 @@ body{
     width: 200px;
     position: relative;
     align-items: stretch;
-    height: 100vh;
-    background-color: saddlebrown;
+    height: 620px;
+    background-color: chocolate;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
 #menu li{
-    border-left: 10px solid saddlebrown;
     border-bottom: 1px solid sienna;
-    background-color: chocolate;
     min-height: 50px;
     text-align: center;
     color: wheat;
@@ -28,12 +27,11 @@ body{
     cursor: pointer;
 }
 #menu li:hover{
-    background-color: #666;
-    border-left: 10px solid sandybrown;
+    background-color: sienna;
 }
 
 #buttons{
-    top: -510px;
+    top: -560px;
     margin-left: 40%;
     padding: 0;
     list-style-type: none;
@@ -56,34 +54,21 @@ body{
 }
 
 #buttons li:hover{
-    background-color:  #666;
-}
-
-#tableCity{
-    margin-left: 47%;
-}
-
-#tableTalking{
-    margin-left: 25%;
-}
-
-#tableTarif{
-    margin-left: 30%;
+    background-color:  saddlebrown;
 }
 
 .selected{
-    background-color: #ddd;
+    background-color: lightgoldenrodyellow;
 }
 table{
     position: relative;
-    top: -490px;
-    margin-left: 38%;
     font-family: "Lucida Sans Unicode", Sans-Serif;
     font-size: 20px;
     border-radius: 10px;
     border-spacing: 0;
     text-align: center;
     cursor: pointer;
+    height: 300px;
 }
 th {
     background: #FF7F50;
@@ -95,6 +80,7 @@ th, td {
     border-style: solid;
     border-width: 0 1px 1px 0;
     border-color: saddlebrown;
+
 }
 th:first-child, td:first-child {
     text-align: left;
@@ -163,6 +149,15 @@ tr td:last-child {
 
 .close:hover{
     opacity: 0.5;
+}
+
+.impPhone{
+    position: absolute;
+    width:320px;
+    height:320px;
+    top: 30%;
+    background-image: url(images/imgPhone.png);
+    background-size: contain;
 }
 
 .field{
@@ -245,13 +240,14 @@ tr td:last-child {
     position: absolute;
     top: 65px;
     left: 390px;
-    width: 1000px;
+    width: 840px;
     height: 200px;
 }
 
 .mainPage{
-    margin-left: 30%;
-    margin-top: 10%;
+    position: absolute;
+    left: 30%;
+    top: 30%;
 }
 
 .page{
@@ -260,7 +256,7 @@ tr td:last-child {
     padding-left: 150px;
     text-align: center;
     font-size: 40px;
-    color: sienna;
+    color: chocolate;
     cursor: pointer;
     text-transform: uppercase;
     cursor: pointer;
@@ -269,17 +265,32 @@ tr td:last-child {
 .titleMainPage{
     font-size: 50px;
     text-transform: uppercase;
-    color:  #402a55;
+    color:  sienna;
     position: absolute;
-    top: 10%;
-    left: 25%;
+    top: -40%;
+    left: -20%;
+    width: 900px;
+    font-weight:bold;
 }
 
-.impPhone{
-    position: absolute;
-    width:320px;
-    height:300px;
-    top: 30%;
-    background-image: url(images/imgPhone.png);
-    background-size: cover;
+.divTable{
+    height: 465px;
+    width: 1045px;
+    top: -550px;
+    overflow: auto;
+    position: relative;
+    left: 270px;
+    border-radius: 10px;
+}
+
+#tableAbonent{
+    left:190px;
+}
+
+#tableCity{
+    left:640px;
+}
+
+#tableTarif{
+    left:390px;
 }

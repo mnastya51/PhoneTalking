@@ -15,12 +15,12 @@
 </head>
 <body onload = "selectAbonent()">
 <ul id = "menu">
-    <li style = "border-top-right-radius: 20px" onclick="redirecting('/abonent')">Абоненты</li>
+    <li style = "border-top-right-radius: 20px; background-color: saddlebrown" onclick="redirecting('/abonent')">Абоненты</li>
     <li onclick="redirecting('/city')">Города</li>
     <li onclick="redirecting('/tarif')">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
-<div class = "filtr" style="left: 160px">
+<div class = "filtr" style="left: 210px; top: 63px">
     <input class ="inputFiltr" placeholder="ФИО" id ="fioFiltr">
     <input class ="inputFiltr" style="left: 170px" placeholder="Телефон" id ="phoneFiltr">
     <input class ="inputFiltr" style="left: 180px" id ="addressFiltr" placeholder="Адрес">

@@ -200,7 +200,8 @@ import java.util.ArrayList;
                 filterFormatter.addValueWithRegisters("\"phoneTalking\".\"city\".cityname", talking.getCityName());
                 if(talking.getMinCount() >= 0)
                     filterFormatter.addValue("\"phoneTalking\".\"talking\".mincount", talking.getMinCount());
-                filterFormatter.addValue("\"phoneTalking\".\"talking\".talkdate", talking.getTalkDate());
+                if(!talking.getTalkDate().isEmpty())
+                    filterFormatter.addValue("\"phoneTalking\".\"talking\".talkdate", talking.getTalkDate());
                 if(!talking.getTalkTime().isEmpty())
                     filterFormatter.addValue("\"phoneTalking\".\"talking\".talktime", talking.getTalkTime() + ":00");
                 if (talking.getCostTalk() >= 0)

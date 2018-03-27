@@ -20,9 +20,12 @@ function selectCities() {
 }
 
 function createTableCity(response) {
+    var div = document.createElement("div");
+    document.body.appendChild(div);
+    div.classList.add('divTable');
     var table = document.createElement("table");
-    table.id = 'tableCity';
-    document.body.appendChild(table);
+    div.id = 'tableCity';
+    div.appendChild(table);
     var tr = document.createElement("tr");
     var th1 = document.createElement("th");
     th1.appendChild(document.createTextNode("Код"));
@@ -88,8 +91,8 @@ function createTableCity(response) {
 function deleteTable(table) {
     var table = document.getElementById(table);
     table.parentNode.removeChild(table);
-
 }
+
 function showForm(divId, edit) {
     var form = document.getElementById(divId);
     if ($(form).is(':visible')) {
@@ -222,10 +225,13 @@ function selectAbonent() {
 }
 
 function createTableAbonent(response) {
+    var div = document.createElement("div");
+    document.body.appendChild(div);
+    div.classList.add('divTable')
     var table = document.createElement("table");
-    table.id = 'tableAbonent';
+    div.id = 'tableAbonent';
     table.style.marginLeft = "18%";
-    document.body.appendChild(table);
+    div.appendChild(table);
     var tr = document.createElement("tr");
     var th = document.createElement("th");
     th.appendChild(document.createTextNode("Код"));
@@ -542,9 +548,12 @@ function selectTarif() {
 }
 
 function createTableTarif(response) {
+    var div = document.createElement("div");
+    document.body.appendChild(div);
+    div.classList.add('divTable')
     var table = document.createElement("table");
-    table.id = 'tableTarif';
-    document.body.appendChild(table);
+    div.id = 'tableTarif';
+    div.appendChild(table);
     var tr = document.createElement("tr");
     var th2 = document.createElement("th");
     th2.appendChild(document.createTextNode("Город"));
@@ -809,9 +818,14 @@ function selectTalking(){
 }
 
 function createTableTalking(response) {
+    var div = document.createElement("div");
+    document.body.appendChild(div);
+    div.classList.add('divTable');
+    div.style.top = "-510px";
+    div.style.height ="430px";
     var table = document.createElement("table");
-    table.id = 'tableTalking';
-    document.body.appendChild(table);
+    div.id = 'tableTalking';
+    div.appendChild(table);
     var tr = document.createElement("tr");
     var th1 = document.createElement("th");
     th1.appendChild(document.createTextNode("Код"));
@@ -1231,18 +1245,21 @@ function filterAbonentAll() {
 }
 
 function filterTarifAll() {
-    document.getElementById('minCost').value = "";
-    document.getElementById('startPeriod').value = "00:00";
-    document.getElementById('finishPeriod').value = "00:00";
+    document.getElementById('cityFiltr').value = "";
+    document.getElementById('periodStartFiltr').value = "";
+    document.getElementById('periodEndFiltr').value = "";
+    document.getElementById('minCostFiltr').value = "";
     deleteTable('tableTarif');
     selectTarif();
 }
 
 function filterTalkingAll() {
-    document.getElementById('abonentNameInput').value = "";
-    document.getElementById('abonentPhoneInput').value = "";
-    document.getElementById('abonentAddressInput').value = "";
-    document.getElementById('abonentFacilityInput').checked = false;
+    document.getElementById('phoneFiltr').value = "";
+    document.getElementById('cityFiltr').value = "";
+    document.getElementById('minFiltr').value = "";
+    document.getElementById('dateFiltr').value = "";
+    document.getElementById('timeFiltr').value = "";
+    document.getElementById('costFiltr').value = "";
     deleteTable('tableTalking');
     selectTalking();
 }

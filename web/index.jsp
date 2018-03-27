@@ -13,8 +13,8 @@
     <title>Телефонные переговоры</title>
   </head>
   <body>
-  <img class = "impPhone" style="left: 10%">
-  <img class ="impPhone" style="right: 10%">
+
+  <div class ="impPhone" style="right: 68px"></div>
   <div class = "mainPage">
     <div class="titleMainPage">Телефонные переговоры</div>
     <div class = "page" onclick="redirecting('/abonent')">Абоненты</div>
@@ -22,5 +22,6 @@
     <div class = "page" onclick="redirecting('/tarif')">Тарифы</div>
     <div class = "page" onclick="redirecting('/talking')">Разговоры</div>
   </div>
+    <div class = "impPhone" style="left: 80px"></div>
   </body>
 </html>

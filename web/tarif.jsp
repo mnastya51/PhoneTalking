@@ -17,10 +17,10 @@
 <ul id = "menu">
     <li style = "border-top-right-radius: 20px" onclick="redirecting('/abonent')">Абоненты</li>
     <li onclick="redirecting('/city')">Города</li>
-    <li onclick="redirecting('/tarif')">Тарифы</li>
+    <li onclick="redirecting('/tarif')"  style="background-color: saddlebrown">Тарифы</li>
     <li onclick="redirecting('/talking')">Разговоры</li>
 </ul>
-<div class = "filtr" style="left: 280px">
+<div class = "filtr" style="left: 280px; top: 55px">
     <input class ="inputFiltr" style="left: 60px" placeholder = "Город" id ="cityFiltr">
     <input class ="inputFiltr" style="left: 70px" placeholder = "Начало периода" id ="periodStartFiltr">
     <input class ="inputFiltr" style="left: 80px" placeholder = "Конец периода"  id ="periodEndFiltr">
