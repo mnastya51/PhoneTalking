@@ -148,8 +148,6 @@ function showForm(divId, edit) {
                 document.getElementById('timeTalking').value = "00:00";
                 document.getElementById('cost').value = "";
                 document.getElementById('min').value = "";
-               // document.getElementById("citySelect").options[0].selected=true;
-               // document.getElementById("phoneSelect").options[0].selected=true;
             }
             if(document.getElementById('cost').className == 'input error')
                 document.getElementById('cost').classList.remove('error');
@@ -227,7 +225,7 @@ function selectAbonent() {
 function createTableAbonent(response) {
     var div = document.createElement("div");
     document.body.appendChild(div);
-    div.classList.add('divTable')
+    div.classList.add('divTable');
     var table = document.createElement("table");
     div.id = 'tableAbonent';
     table.style.marginLeft = "18%";

@@ -62,10 +62,6 @@ public class TarifServlet extends HttpServlet {
         DAOCity daoCity = new DAOCity();
         try {
             List<City> cities = daoCity.select();
-            /*List<City> names = new ArrayList<>();
-            for(int i=0; i<cities.size(); i++){
-                names.add(new City (cities.get(i).getNameCity()));
-            }*/
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(gson.toJson(cities));

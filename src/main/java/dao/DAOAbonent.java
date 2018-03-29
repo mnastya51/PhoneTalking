@@ -116,7 +116,7 @@ public class DAOAbonent  extends Connect implements DAOInterface{
         }
     }
 
-    public ArrayList<Abonent> filtr(Entity T) throws SQLException {
+    public ArrayList<Abonent> filter(Entity T) throws SQLException {
         try (Connection connection = connect()){
             String phone = "";
             String fio = "";

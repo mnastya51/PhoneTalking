@@ -72,7 +72,7 @@ public class DAOCity extends Connect implements DAOInterface {
         }
     }
 
-    public ArrayList<City> filtr(String value) throws SQLException {
+    public ArrayList<City> filter(String value) throws SQLException {
         try (Connection connection = connect()){
             String name = "";
             int id = 0;

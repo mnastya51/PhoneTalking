@@ -34,7 +34,7 @@ public class CityServlet extends HttpServlet {
                 actionSort(resp, req.getParameter("value"));
                 break;
             case "filter":
-                actionFiltr(resp, req.getParameter("value"));
+                actionFilter(resp, req.getParameter("value"));
                 break;
         }
     }
@@ -99,10 +99,10 @@ public class CityServlet extends HttpServlet {
         }
     }
 
-    private void actionFiltr(HttpServletResponse resp, String value) {
+    private void actionFilter(HttpServletResponse resp, String value) {
         DAOCity daoCity = new DAOCity();
         try {
-            List<City> cities = daoCity.filtr(value);
+            List<City> cities = daoCity.filter(value);
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(gson.toJson(cities));
