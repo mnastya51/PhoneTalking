@@ -22,7 +22,7 @@
 </ul>
 <div class = "filtr">
     <input class ="inputFiltr" style="top: -42px" placeholder="Город" id ="cityNameFiltr">
-    <button class = "buttonOkFiltr" style="top: -42px" onclick="filterCity(document.getElementById('cityNameFiltr').value)">ОК</button>
+    <button class = "buttonOkFiltr" style="top: -42px" onclick="filterCity(cityNameFiltr.value)">ОК</button>
     <button class = "buttonOkFiltr" style="left: 180px; width: 150px; top: -42px;" onclick="filterCityAll()">Показать все</button>
 </div>
 <ul id="buttons">
@@ -35,7 +35,7 @@
     <div class = "form">
         <div class ="field">Наименование:</div>
         <input class ="input" id ="cityNameInput">
-        <button class = "buttonOk" onclick="addCity(document.getElementById('cityNameInput').value)">ОК</button>
+        <button class = "buttonOk" onclick="addCity(cityNameInput.value)">ОК</button>
     </div>
 </div>
 </body>

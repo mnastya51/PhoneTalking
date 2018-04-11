@@ -5,7 +5,7 @@ public class Abonent extends Entity {
     private String phone;
     private String fio;
     private String address;
-    private Boolean facility;
+    private boolean facility;
 
     public Abonent(int id) {
         this.id = id;
@@ -42,7 +42,7 @@ public class Abonent extends Entity {
         this.address = address;
     }
 
-    public void setFacility(Boolean facility) {
+    public void setFacility(boolean facility) {
         this.facility = facility;
     }
 

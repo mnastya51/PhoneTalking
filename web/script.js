@@ -228,7 +228,7 @@ function createTableAbonent(response) {
     div.classList.add('divTable');
     var table = document.createElement("table");
     div.id = 'tableAbonent';
-    table.style.marginLeft = "18%";
+    table.style.marginLeft = "10%";
     div.appendChild(table);
     var tr = document.createElement("tr");
     var th = document.createElement("th");

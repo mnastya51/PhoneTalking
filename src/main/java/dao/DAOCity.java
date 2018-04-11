@@ -72,13 +72,14 @@ public class DAOCity extends Connect implements DAOInterface {
         }
     }
 
-    public ArrayList<City> filter(String value) throws SQLException {
+    public ArrayList<City> filter(Entity T) throws SQLException {
         try (Connection connection = connect()){
             String name = "";
             int id = 0;
+            City c = (City) T;
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(String.format("SELECT *  FROM \"phoneTalking\".\"city\" where" +
-                    " UPPER(REPLACE(cityname,' ','')) LIKE(UPPER(REPLACE(\'%s\',' ','')))", "%" + value + "%"));
+                    " UPPER(REPLACE(cityname,' ','')) LIKE(UPPER(REPLACE(\'%s\',' ','')))", "%" + c.getNameCity() + "%"));
             ArrayList<City> list = new ArrayList<>();
             while (rs.next()) {
                 id = rs.getInt("cityid");

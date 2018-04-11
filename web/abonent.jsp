@@ -26,10 +26,8 @@
     <input class ="inputFiltr" style="left: 180px" id ="addressFiltr" placeholder="Адрес">
     <div class ="fieldFiltr" style="left: 655px; top: -57px">Льготы:</div>
     <input type="checkbox" style="position:relative; left: 735px; top: -85px" class="checkbox" id ="facilityFiltr">
-    <button class = "buttonOkFiltr" style="left: 740px; top: -92px" onclick="filterAbonent(document.getElementById('fioFiltr').value,
-                document.getElementById('phoneFiltr').value,
-                document.getElementById('addressFiltr').value,
-                document.getElementById('facilityFiltr').checked)">ОК</button>
+    <button class = "buttonOkFiltr" style="left: 740px; top: -92px" onclick="filterAbonent(fioFiltr.value,
+                phoneFiltr.value,addressFiltr.value,facilityFiltr.checked)">ОК</button>
     <button class = "buttonOkFiltr" style="left: 750px; top:-92px; width: 150px" onclick="filterAbonentAll()">Показать все</button>
 </div>
 <ul id="buttons">
@@ -50,10 +48,8 @@
         <div class ="field" style="top: 20px">Льготы:</div>
         <input type="checkbox" class="checkbox" id ="abonentFacilityInput">
         <button class = "buttonOk" style="top: 160px; left:130px"
-                onclick="addAndEditAbonent(document.getElementById('abonentNameInput').value,
-                document.getElementById('abonentPhoneInput').value,
-                document.getElementById('abonentAddressInput').value,
-                document.getElementById('abonentFacilityInput').checked)">ОК</button>
+                onclick="addAndEditAbonent(abonentNameInput.value,abonentPhoneInput.value,abonentAddressInput.value,
+               abonentFacilityInput.checked)">ОК</button>
     </div>
 </div>
 </body>

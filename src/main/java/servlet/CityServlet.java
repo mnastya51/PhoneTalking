@@ -102,7 +102,7 @@ public class CityServlet extends HttpServlet {
     private void actionFilter(HttpServletResponse resp, String value) {
         DAOCity daoCity = new DAOCity();
         try {
-            List<City> cities = daoCity.filter(value);
+            List<City> cities = daoCity.filter(new City(value));
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(gson.toJson(cities));

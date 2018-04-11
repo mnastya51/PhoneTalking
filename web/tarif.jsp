@@ -25,10 +25,8 @@
     <input class ="inputFiltr" style="left: 70px" placeholder = "Начало периода" id ="periodStartFiltr">
     <input class ="inputFiltr" style="left: 80px" placeholder = "Конец периода"  id ="periodEndFiltr">
     <input class ="inputFiltr" style="left: 90px" placeholder = "Цена за минуту" id ="minCostFiltr">
-    <button class = "buttonOkFiltr" style="left: 100px" onclick="filterTarif(document.getElementById('cityFiltr').value,
-                document.getElementById('periodStartFiltr').value,
-                document.getElementById('periodEndFiltr').value,
-                document.getElementById('minCostFiltr').value)">ОК</button>
+    <button class = "buttonOkFiltr" style="left: 100px" onclick="filterTarif(cityFiltr.value,periodStartFiltr.value,
+                periodEndFiltr.value,minCostFiltr.value)">ОК</button>
     <button class = "buttonOkFiltr" style="left: 110px; width: 150px" onclick="filterTarifAll()">Показать все</button>
 </div>
 <ul id="buttons" style="left: 40px">
@@ -47,10 +45,8 @@
         <input class ="input" type="time" value = "00:00" id ="finishPeriod" style="width: 150px; left: 160px; top: 95px">
         <div class ="field" style="top: 25px">Цена за минуту:</div>
         <input class ="input" id ="minCost" style="width: 150px; left: 160px; top: 127px">
-        <button class = "buttonOk" style="left: 140px; top: 160px" onclick="addTarif(document.getElementById('cityNameSelect').options[document.getElementById('cityNameSelect').selectedIndex].text,
-        document.getElementById('startPeriod').value,
-        document.getElementById('finishPeriod').value,
-        document.getElementById('minCost').value)">ОК</button>
+        <button class = "buttonOk" style="left: 140px; top: 160px" onclick="addTarif(cityNameSelect.options[cityNameSelect.selectedIndex].text,
+        startPeriod.value,finishPeriod.value,minCost.value)">ОК</button>
     </div>
 </div>
 </body>

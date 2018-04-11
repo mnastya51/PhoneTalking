@@ -144,6 +144,4 @@ public class DAOAbonent  extends Connect implements DAOInterface{
             return list;
         }
     }
-
-
 }
